@@ -1,33 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:hms/screens/signup.dart';
-import 'package:hms/screens/login.dart';
+// import 'screens/login.dart';
 
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatelessWidget{
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'HMS',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      home: SafeArea(
+        child: SignUpScreen(),
       ),
-      home: const SignUpScreen(),
     );
   }
 }
 
-class SignUpPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return const SignUpScreen();
-  }
-}
 
