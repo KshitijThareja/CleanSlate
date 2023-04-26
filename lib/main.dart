@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:hms/screens/signup.dart';
-// import 'screens/login.dart';
+import 'package:hms/screens/login.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget{
-
-  // This widget is the root of your application.
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SafeArea(
-        child: SignUpScreen(),
-      ),
+      home: LoginScreen(),
     );
   }
 }
-
-

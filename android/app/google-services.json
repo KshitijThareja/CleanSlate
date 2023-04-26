@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "205131740686",
+    "project_id": "cleanslate-57c70",
+    "storage_bucket": "cleanslate-57c70.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:205131740686:android:d91956040943335d676e5f",
+        "android_client_info": {
+          "package_name": "com.example.hms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "205131740686-aarptsd0ua17mjsd7f9cq6jc1ircb36q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCZ9W0tjls3lCliftJPHlozhWhJ8gxGao"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "205131740686-aarptsd0ua17mjsd7f9cq6jc1ircb36q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
