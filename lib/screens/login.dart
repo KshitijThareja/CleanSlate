@@ -4,127 +4,108 @@ import 'package:hms/screens/home.dart';
 import 'package:hms/screens/reusable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class LoginScreen extends StatefulWidget {
-
-  @override
-  _LoginScreenState createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController _passwordTextController = TextEditingController();
-  TextEditingController _emailTextController = TextEditingController();
+class LoginScreen extends StatelessWidget {
+  const LoginScreen();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: SingleChildScrollView(
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment(0, 370),
+                end: Alignment(430, 0),
+                colors: [
+                  Color.fromRGBO(216, 75, 40, 0.788),
+                  Color.fromRGBO(255, 129, 13, 0.7900000214576721)
+                ]),
+          ),
+          child: _Body(),
+        ),
+      ),
+    );
+  }
+}
 
-      child: Container(
+class _Body extends StatefulWidget {
+  @override
+  State<_Body> createState() => _BodyState();
+}
 
-          color: Colors.white,
+class _BodyState extends State<_Body> {
+  final TextEditingController _passwordTextController = TextEditingController();
+
+  final TextEditingController _emailTextController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Expanded(
+          flex: 2,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              const SizedBox(
-                height: 130,
-              ),
               Image.asset(
                 'assets/logo.png',
-                scale: 3.5,
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const <Widget>[
-                    Text(
-                      "Login",
-                      style: TextStyle(color: Colors.black, fontSize: 40),
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(10),
-                // decoration: const BoxDecoration(
-                //     border: Border(bottom: BorderSide(color: Colors.grey))),
-                child: TextField(
-                    decoration: const InputDecoration(
-                      hintText: "Email",
-                      prefixIcon: Icon(Icons.mail),
-                      hintStyle: TextStyle(color: Colors.grey),
-                      border: OutlineInputBorder(),
-                    ),
-                    controller: _emailTextController),
-              ),
-              Container(
-                padding: const EdgeInsets.all(10),
-                // decoration: const BoxDecoration(
-                // border: Border(bottom: BorderSide(color: Colors.grey))),
-                child: TextField(
-                    decoration: const InputDecoration(
-                        hintText: "Password",
-                        prefixIcon: Icon(Icons.lock),
-                        hintStyle: TextStyle(color: Colors.grey),
-                        border: OutlineInputBorder()),
-                    controller: _passwordTextController),
-              ),
-              const SizedBox(
-                height: 40,
-              ),
-              const Text(
-                "Forgot Password?",
-                style: TextStyle(color: Colors.grey),
-              ),
-              const SizedBox(
-                height: 40,
-              ),
-              firebaseUIButton(context, "Sign In", () {
-                FirebaseAuth.instance
-                    .signInWithEmailAndPassword(
-                        email: _emailTextController.text,
-                        password: _passwordTextController.text)
-                    .then((value) {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()));
-                }).onError((error, stackTrace) {
-                  print("Error ${error.toString()}");
-                });
-              }),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text("Don't have account?",
-                      style: TextStyle(color: Colors.black)),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SignUpScreen()));
-                    },
-                    child: const Text(
-                      " Sign Up",
-                      style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.bold),
-                    ),
-                  )
-                ],
-              ),
-          //     const SizedBox.expand(
-          //   child: Card(
-          //     color: Colors.white,
-          //     //Center
-          //   ), //Card
-          // ), //SizedBox.expand
+                height: 300,
+                scale: 2.5,
+              )
             ],
-          )),
-    ));
+          ),
+        ),
+        Expanded(
+          flex: 3,
+          child: Container(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(50),
+                topRight: Radius.circular(50),
+              ),
+            ),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 30),
+                  child: Container(
+                    padding: const EdgeInsets.fromLTRB(20, 50, 20, 0),
+                    child: TextField(
+                        decoration: const InputDecoration(
+                            contentPadding: EdgeInsets.only(
+                              left: 10.0,
+                              right: 10.0,
+                            ),
+                            labelText: "Email",
+                            prefixIcon: Icon(Icons.lock),
+                            hintStyle: TextStyle(color: Colors.grey)),
+                        controller: _emailTextController),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(),
+                  child: Container(
+                    padding: const EdgeInsets.fromLTRB(20, 30, 20, 0),
+                    child: TextField(
+                        decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.only(
+                            left: 10.0,
+                            right: 10.0,
+                          ),
+                          labelText: "Password",
+                          prefixIcon: Icon(Icons.mail),
+                          hintStyle: TextStyle(color: Colors.grey),
+                        ),
+                        controller: _passwordTextController),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
