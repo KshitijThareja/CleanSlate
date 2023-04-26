@@ -39,6 +39,7 @@ dependencies:
   firebase_auth: ^4.4.2
   simple_animations: ^5.0.0+3
   flutterfire_ui: ^0.4.3+20
+  responsive_framework: ^0.1.4
 
 dev_dependencies:
   flutter_test:
