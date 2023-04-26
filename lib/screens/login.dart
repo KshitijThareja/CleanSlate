@@ -5,7 +5,6 @@ import 'package:hms/screens/reusable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -55,33 +54,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.all(10),
                 // decoration: const BoxDecoration(
                 //     border: Border(bottom: BorderSide(color: Colors.grey))),
-                // child: TextField(
-                //     decoration: const InputDecoration(
-                //       hintText: "Email",
-                //       prefixIcon: Icon(Icons.mail),
-                //       hintStyle: TextStyle(color: Colors.grey),
-                //       border: OutlineInputBorder(),
-                //     ),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5),
-                        borderSide: BorderSide(
-                          color: Colors.green,
-                          width: 1.0,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        borderSide: BorderSide(
-                          color: Colors.purple,
-                          width: 2.0,
-                        ),
-                      ),
+                child: TextField(
+                    decoration: const InputDecoration(
+                      hintText: "Email",
+                      prefixIcon: Icon(Icons.mail),
+                      hintStyle: TextStyle(color: Colors.grey),
+                      border: OutlineInputBorder(),
                     ),
-                      controller: _emailTextController),
-                  ),
-
+                    controller: _emailTextController),
               ),
               Container(
                 padding: const EdgeInsets.all(10),
