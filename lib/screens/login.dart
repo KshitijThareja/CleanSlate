@@ -5,22 +5,19 @@ import 'package:hms/screens/reusable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginScreen extends StatefulWidget {
-
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController _passwordTextController = TextEditingController();
-  TextEditingController _emailTextController = TextEditingController();
+  final TextEditingController _passwordTextController = TextEditingController();
+  final TextEditingController _emailTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: SingleChildScrollView(
-
       child: Container(
-
           color: Colors.white,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -117,12 +114,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   )
                 ],
               ),
-          //     const SizedBox.expand(
-          //   child: Card(
-          //     color: Colors.white,
-          //     //Center
-          //   ), //Card
-          // ), //SizedBox.expand
             ],
           )),
     ));
