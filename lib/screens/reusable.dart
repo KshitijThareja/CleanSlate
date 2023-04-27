@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-
-
 Container firebaseUIButton(BuildContext context, String title, Function onTap) {
   return Container(
     // width: MediaQuery.of(context).size.width,
@@ -26,8 +24,7 @@ Container firebaseUIButton(BuildContext context, String title, Function onTap) {
             return Colors.orange[900];
           }),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)))
-      ),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)))),
     ),
   );
 }
