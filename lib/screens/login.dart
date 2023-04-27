@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hms/screens/signup.dart';
-import 'package:hms/screens/home.dart';
+import 'package:hms/screens/my_homepage.dart';
 import 'package:hms/screens/reusable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -68,10 +68,22 @@ class _BodyState extends State<_Body> {
             ),
             child: Column(
               children: [
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                  child: Text(
+                    'LOGIN',
+                    style: TextStyle(
+                      fontFamily: 'Roboto Condensed',
+                      fontSize: 40,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
                   child: Container(
-                    padding: const EdgeInsets.fromLTRB(20, 50, 20, 0),
+                    padding: const EdgeInsets.fromLTRB(20, 30, 20, 0),
                     child: TextField(
                         decoration: const InputDecoration(
                             contentPadding: EdgeInsets.only(
