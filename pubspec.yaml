@@ -40,6 +40,8 @@ dependencies:
   simple_animations: ^5.0.0+3
   flutterfire_ui: ^0.4.3+20
   responsive_framework: ^0.1.4
+  cloud_firestore: ^4.5.3
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

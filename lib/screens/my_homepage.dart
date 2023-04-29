@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hms/screens/custom_animated_bottom_bar.dart';
+import 'package:hms/screens/reg_complaint.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -8,14 +9,14 @@ class HomeScreen extends StatefulWidget {
 
 class HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
-  final _inactiveColor = Colors.grey;
+  final _inactiveColor = const Color.fromARGB(255, 99, 97, 97);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title:const Text("Custom Animated Bottom Navigation Bar"),
-          backgroundColor: Colors.green[200],
+          title: const Text("HMS"),
+          backgroundColor: const Color.fromARGB(255, 243, 81, 81),
         ),
         body: getBody(),
         bottomNavigationBar: _buildBottomBar());
@@ -24,7 +25,7 @@ class HomeScreenState extends State<HomeScreen> {
   Widget _buildBottomBar() {
     return CustomAnimatedBottomBar(
       containerHeight: 70,
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       selectedIndex: _currentIndex,
       showElevation: true,
       itemCornerRadius: 24,
@@ -33,65 +34,53 @@ class HomeScreenState extends State<HomeScreen> {
       items: <BottomNavyBarItem>[
         BottomNavyBarItem(
           icon: const Icon(Icons.apps),
-          title:const Text('Home'),
-          activeColor: Colors.green,
-          inactiveColor: _inactiveColor,
-          textAlign: TextAlign.center,
-        ),
-        BottomNavyBarItem(
-          icon:const Icon(Icons.people),
-          title: const Text('Users'),
-          activeColor: Colors.purpleAccent,
+          title: const Text('Home'),
+          activeColor: Colors.orange,
           inactiveColor: _inactiveColor,
           textAlign: TextAlign.center,
         ),
         BottomNavyBarItem(
           icon: const Icon(Icons.message),
-          title:const Text(
-            'Messages ',
+          title: const Text(
+            'Notifications ',
           ),
-          activeColor: Colors.pink,
+          activeColor: Colors.orange,
           inactiveColor: _inactiveColor,
           textAlign: TextAlign.center,
         ),
         BottomNavyBarItem(
-          icon: const Icon(Icons.settings),
-          title: const Text('Settings'),
-          activeColor: Colors.blue,
+          icon: const Icon(Icons.person),
+          title: const Text('Users'),
+          activeColor: Colors.orange,
           inactiveColor: _inactiveColor,
           textAlign: TextAlign.center,
         ),
+
+        // BottomNavyBarItem(
+        //   icon: const Icon(Icons.settings),
+        //   title: const Text('Settings'),
+        //   activeColor: Colors.blue,
+        //   // inactiveColor: _inactiveColor,
+        //   textAlign: TextAlign.center,
+        // ),
       ],
     );
   }
 
   Widget getBody() {
     List<Widget> pages = [
+      Container(alignment: Alignment.center, child: Register()),
       Container(
         alignment: Alignment.center,
         child: const Text(
-          "Home",
+          "Notifications",
           style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
         ),
       ),
       Container(
         alignment: Alignment.center,
         child: const Text(
-          "Users",
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-        ),
-      ),
-      Container(
-        alignment: Alignment.center,
-        child: const Text(
-          "Messages",
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-        ),
-      ),
-      Container(
-        alignment: Alignment.center,
-        child: const Text(
-          "Settings",
+          "Account",
           style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
         ),
       ),
