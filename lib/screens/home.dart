@@ -1,7 +1,6 @@
 import 'package:hms/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:hms/screens/signup.dart';
-import 'package:hms/screens/login.dart';
 
 class IntroScreen extends StatelessWidget {
   @override
@@ -33,10 +32,10 @@ class Main extends StatelessWidget {
         child: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-                begin: Alignment(0, 370),
-                end: Alignment(430, 0),
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
                 colors: [
-                  Color.fromRGBO(216, 75, 40, 0.788),
+                  Color.fromRGBO(242, 51, 62, 1),
                   Color.fromRGBO(255, 129, 13, 0.7900000214576721)
                 ]),
           ),
@@ -44,7 +43,7 @@ class Main extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 120, 0, 20),
+                padding: const EdgeInsets.fromLTRB(0, 70, 0, 20),
                 child: Image.asset(
                   'assets/logo.png',
                   height: 300,
@@ -52,7 +51,7 @@ class Main extends StatelessWidget {
                 ),
               ),
               const Padding(
-                padding: EdgeInsets.fromLTRB(0, 0, 0, 40),
+                padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
                 child: Text(
                   'HMS',
                   style: TextStyle(
@@ -67,36 +66,43 @@ class Main extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    padding: const EdgeInsets.fromLTRB(20, 140, 20, 0),
                     child: Expanded(
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            elevation: 0,
-                            shape: RoundedRectangleBorder(),
-                            foregroundColor: Color.fromARGB(248, 255, 255, 255),
+                            fixedSize: const Size(130, 50),
+                            elevation: 10,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50)),
+                            foregroundColor:
+                                const Color.fromARGB(248, 255, 255, 255),
                             backgroundColor: Colors.black,
-                            side: BorderSide(color: Colors.black),
-                            padding: EdgeInsets.symmetric(
+                            side: const BorderSide(color: Colors.black),
+                            padding: const EdgeInsets.symmetric(
                                 vertical: 15, horizontal: 40)),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const LoginScreen()));
+                              builder: (context) => LoginScreen()));
                         },
                         child: const Text("Login"),
                       ),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    padding: const EdgeInsets.fromLTRB(20, 140, 20, 0),
                     child: Expanded(
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            elevation: 0,
-                            shape: RoundedRectangleBorder(),
-                            foregroundColor: Color.fromARGB(248, 255, 255, 255),
+                            fixedSize: const Size(130, 50),
+                            elevation: 10,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            foregroundColor:
+                                const Color.fromARGB(248, 255, 255, 255),
                             backgroundColor: Colors.black,
-                            side: BorderSide(color: Colors.black),
-                            padding: EdgeInsets.symmetric(
+                            side: const BorderSide(color: Colors.black),
+                            padding: const EdgeInsets.symmetric(
                                 vertical: 15, horizontal: 40)),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
