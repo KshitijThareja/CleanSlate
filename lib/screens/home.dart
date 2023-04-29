@@ -67,49 +67,45 @@ class Main extends StatelessWidget {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.fromLTRB(20, 140, 20, 0),
-                    child: Expanded(
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            fixedSize: const Size(130, 50),
-                            elevation: 10,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50)),
-                            foregroundColor:
-                                const Color.fromARGB(248, 255, 255, 255),
-                            backgroundColor: Colors.black,
-                            side: const BorderSide(color: Colors.black),
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 15, horizontal: 40)),
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => LoginScreen()));
-                        },
-                        child: const Text("Login"),
-                      ),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          fixedSize: const Size(130, 50),
+                          elevation: 10,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50)),
+                          foregroundColor:
+                              const Color.fromARGB(248, 255, 255, 255),
+                          backgroundColor: Colors.black,
+                          side: const BorderSide(color: Colors.black),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 40)),
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => LoginScreen()));
+                      },
+                      child: const Text("Login"),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(20, 140, 20, 0),
-                    child: Expanded(
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            fixedSize: const Size(130, 50),
-                            elevation: 10,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            foregroundColor:
-                                const Color.fromARGB(248, 255, 255, 255),
-                            backgroundColor: Colors.black,
-                            side: const BorderSide(color: Colors.black),
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 15, horizontal: 40)),
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const SignupScreen()));
-                        },
-                        child: const Text("Signup"),
-                      ),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          fixedSize: const Size(130, 50),
+                          elevation: 10,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          foregroundColor:
+                              const Color.fromARGB(248, 255, 255, 255),
+                          backgroundColor: Colors.black,
+                          side: const BorderSide(color: Colors.black),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 40)),
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const SignupScreen()));
+                      },
+                      child: const Text("Signup"),
                     ),
                   ),
                 ],
