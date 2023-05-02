@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:intl/intl.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,10 +22,13 @@ class RegFormState extends State<RegForm> {
   final TextEditingController _descriptionTextController =
       TextEditingController();
 
+  String? email = FirebaseAuth.instance.currentUser?.email;
+  String? uid = FirebaseAuth.instance.currentUser?.uid;
   var selectedType;
   var today = DateTime.now();
   var dateFormat = DateFormat('dd-MM-yyyy');
   late String currentDate = dateFormat.format(today);
+  late String dtString = today.toString();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final List<String> _complaintType = <String>[
     'Electricity',
@@ -124,18 +128,36 @@ class RegFormState extends State<RegForm> {
               ),
             ),
             ElevatedButton(
-                child: Text('Submit'),
+                child: const Text('Submit'),
                 onPressed: () {
                   CollectionReference collref =
-                      FirebaseFirestore.instance.collection('client');
+                      FirebaseFirestore.instance.collection('clients');
                   collref.add(
                     {
                       'complaintType': selectedType,
                       'description': _descriptionTextController.text,
                       'roomno': _roomnoTextController.text,
                       'date': currentDate,
+                      'email': email,
+                      'status': "pending",
+                      'datetime': dtString,
                     },
                   );
+                  // var collection =
+                  //     FirebaseFirestore.instance.collection('clients');
+                  // collection
+                  //     .doc(uid) // <-- Document ID
+                  //     .set(
+                  //       {
+                  //         'complaintType': selectedType,
+                  //         'description': _descriptionTextController.text,
+                  //         'roomno': _roomnoTextController.text,
+                  //         'date': currentDate,
+                  //         'email': email,
+                  //       },
+                  //     ) // <-- Your data
+                  //     .then((_) => print('Added'))
+                  //     .catchError((error) => print('Add failed: $error'));
                 })
           ],
         ),

@@ -1,7 +1,6 @@
 import 'package:hms/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:hms/screens/signup.dart';
-import 'package:hms/screens/login.dart';
 
 class IntroScreen extends StatelessWidget {
   @override
@@ -72,11 +71,11 @@ class Main extends StatelessWidget {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             elevation: 0,
-                            shape: RoundedRectangleBorder(),
-                            foregroundColor: Color.fromARGB(248, 255, 255, 255),
+                            shape: const RoundedRectangleBorder(),
+                            foregroundColor:const Color.fromARGB(248, 255, 255, 255),
                             backgroundColor: Colors.black,
-                            side: BorderSide(color: Colors.black),
-                            padding: EdgeInsets.symmetric(
+                            side: const BorderSide(color: Colors.black),
+                            padding: const EdgeInsets.symmetric(
                                 vertical: 15, horizontal: 40)),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
@@ -92,11 +91,11 @@ class Main extends StatelessWidget {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             elevation: 0,
-                            shape: RoundedRectangleBorder(),
-                            foregroundColor: Color.fromARGB(248, 255, 255, 255),
+                            shape: const RoundedRectangleBorder(),
+                            foregroundColor: const Color.fromARGB(248, 255, 255, 255),
                             backgroundColor: Colors.black,
-                            side: BorderSide(color: Colors.black),
-                            padding: EdgeInsets.symmetric(
+                            side: const BorderSide(color: Colors.black),
+                            padding: const EdgeInsets.symmetric(
                                 vertical: 15, horizontal: 40)),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(

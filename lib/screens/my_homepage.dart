@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hms/screens/custom_animated_bottom_bar.dart';
 import 'package:hms/screens/reg_complaint.dart';
+import 'package:hms/screens/account.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -79,10 +80,7 @@ class HomeScreenState extends State<HomeScreen> {
       ),
       Container(
         alignment: Alignment.center,
-        child: const Text(
-          "Account",
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-        ),
+        child: AccountScreen(),
       ),
     ];
     return IndexedStack(

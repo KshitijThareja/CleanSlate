@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hms/screens/my_homepage.dart';
 import 'package:hms/screens/reusable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:firebase_core/firebase_core.dart';
 
 class SignupScreen extends StatelessWidget {
   const SignupScreen();
@@ -145,6 +147,15 @@ class _BodyState extends State<_Body> {
                     }).onError((error, stackTrace) {
                       print("Error ${error.toString()}");
                     });
+                    CollectionReference collref =
+                        FirebaseFirestore.instance.collection('users');
+                    collref.add(
+                      {
+                        'email':  _emailTextController.text,
+                        'password': _passwordTextController.text,
+                        'username': _usernameTextController.text,
+                      },
+                    );
                   }),
                 ),
                 Row(
