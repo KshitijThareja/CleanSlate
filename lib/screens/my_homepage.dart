@@ -15,7 +15,8 @@ class HomeScreenState extends State<HomeScreen> {
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: const Text("HMS"),
+          title: const Text("HOME"),
+          centerTitle: true,
           backgroundColor: const Color.fromARGB(255, 243, 81, 81),
         ),
         body: getBody(),
@@ -55,14 +56,6 @@ class HomeScreenState extends State<HomeScreen> {
           inactiveColor: _inactiveColor,
           textAlign: TextAlign.center,
         ),
-
-        // BottomNavyBarItem(
-        //   icon: const Icon(Icons.settings),
-        //   title: const Text('Settings'),
-        //   activeColor: Colors.blue,
-        //   // inactiveColor: _inactiveColor,
-        //   textAlign: TextAlign.center,
-        // ),
       ],
     );
   }
@@ -70,18 +63,34 @@ class HomeScreenState extends State<HomeScreen> {
   Widget getBody() {
     List<Widget> pages = [
       Container(alignment: Alignment.center, child: Register()),
-      Container(
-        alignment: Alignment.center,
-        child: const Text(
-          "Notifications",
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+      Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: const Text("NOTIFICATIONS"),
+          centerTitle: true,
+          backgroundColor: const Color.fromARGB(255, 243, 81, 81),
+        ),
+        body: Container(
+          alignment: Alignment.center,
+          child: const Text(
+            "Notifications",
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          ),
         ),
       ),
-      Container(
-        alignment: Alignment.center,
-        child: const Text(
-          "Account",
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+      Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: const Text("ACCOUNT"),
+          centerTitle: true,
+          backgroundColor: const Color.fromARGB(255, 243, 81, 81),
+        ),
+        body: Container(
+          alignment: Alignment.center,
+          child: const Text(
+            "Account",
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          ),
         ),
       ),
     ];

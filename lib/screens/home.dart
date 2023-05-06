@@ -1,6 +1,7 @@
 import 'package:hms/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:hms/screens/signup.dart';
+import 'package:hms/animations/animations.dart';
 
 class IntroScreen extends StatelessWidget {
   @override
@@ -80,8 +81,8 @@ class Main extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               vertical: 15, horizontal: 40)),
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => LoginScreen()));
+                        Navigator.of(context).push(CustomPageRoute(
+                            child: LoginScreen()));
                       },
                       child: const Text("Login"),
                     ),
@@ -100,10 +101,10 @@ class Main extends StatelessWidget {
                           backgroundColor: Colors.black,
                           side: const BorderSide(color: Colors.black),
                           padding: const EdgeInsets.symmetric(
-                              vertical: 15, horizontal: 40)),
+                              vertical: 15, horizontal: 30)),
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const SignupScreen()));
+                        Navigator.of(context).push(CustomPageRoute(
+                            child: const SignupScreen()));
                       },
                       child: const Text("Signup"),
                     ),
