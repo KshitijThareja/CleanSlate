@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:hms/screens/my_homepage.dart';
 import 'package:hms/screens/reusable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:hms/screens/home.dart';
+import 'package:hms/animations/animations.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:firebase_core/firebase_core.dart';
+import 'package:hms/screens/admin/account.dart';
 
 class SignupScreen extends StatelessWidget {
   const SignupScreen();
@@ -29,10 +31,25 @@ class _BodyState extends State<_Body> {
   final TextEditingController _passwordTextController = TextEditingController();
   final TextEditingController _emailTextController = TextEditingController();
   final TextEditingController _usernameTextController = TextEditingController();
+  var selectedType;
+  final List<String> _userType = <String>[
+    'Warden',
+    'Student',
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: BackButton(
+          onPressed: () {
+            Navigator.of(context).push(CustomPageRoute(child: IntroScreen()));
+          },
+        ),
+      ),
       body: Container(
         width: double.maxFinite,
         height: double.maxFinite,
@@ -52,7 +69,7 @@ class _BodyState extends State<_Body> {
               top: 0,
               child: Image.asset(
                 'assets/logo.png',
-                height: 330,
+                height: 450,
                 scale: 2.5,
               ),
             ),
@@ -143,6 +160,38 @@ class _BodyState extends State<_Body> {
                                 ),
                               ),
                               Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    // Icon(Icons.arrow_drop_down),
+
+                                    DropdownButton(
+                                        items: _userType
+                                            .map((value) => DropdownMenuItem(
+                                                  value: value,
+                                                  child: Text(
+                                                    value,
+                                                    style: const TextStyle(
+                                                        color: Colors.black),
+                                                  ),
+                                                ))
+                                            .toList(),
+                                        onChanged: (selectedUserType) {
+                                          setState(() {
+                                            selectedType = selectedUserType;
+                                          });
+                                        },
+                                        value: selectedType,
+                                        isExpanded: false,
+                                        hint: const Text(
+                                          'User Type',
+                                          style: TextStyle(color: Colors.black),
+                                        )),
+                                  ],
+                                ),
+                              ),
+                              Padding(
                                 padding:
                                     const EdgeInsets.fromLTRB(0, 40, 0, 20),
                                 child: firebaseUIButton(context, "Sign up", () {
@@ -153,23 +202,16 @@ class _BodyState extends State<_Body> {
                                               _passwordTextController.text)
                                       .then((value) {
                                     print("Created New Account");
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                HomeScreen()));
+                                    route();
+                                    // Navigator.push(
+                                    //     context,
+                                    //     MaterialPageRoute(
+                                    //         builder: (context) =>
+                                    //             HomeScreen()));
                                   }).onError((error, stackTrace) {
                                     print("Error ${error.toString()}");
                                   });
-                                  // CollectionReference collref =
-                                  //     FirebaseFirestore.instance.collection('users');
-                                  // collref.add(
-                                  //   {
-                                  //     'email':  _emailTextController.text,
-                                  //     'password': _passwordTextController.text,
-                                  //     'username': _usernameTextController.text,
-                                  //   },
-                                  // );
+
                                   var collection = FirebaseFirestore.instance
                                       .collection('users');
                                   collection
@@ -182,6 +224,7 @@ class _BodyState extends State<_Body> {
                                               _passwordTextController.text,
                                           'username':
                                               _usernameTextController.text,
+                                          'userType': selectedType,
                                         },
                                       ) // <-- Your data
                                       .then((_) => print('Added'))
@@ -223,5 +266,34 @@ class _BodyState extends State<_Body> {
         ),
       ),
     );
+  }
+
+  void route() {
+    User? user = FirebaseAuth.instance.currentUser;
+    var kk = FirebaseFirestore.instance
+        .collection('users')
+        .doc(user!.email)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        if (documentSnapshot.get('userType') == "Warden") {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const AccountScreen(),
+            ),
+          );
+        } else {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomeScreen(),
+            ),
+          );
+        }
+      } else {
+        print('Document does not exist on the database');
+      }
+    });
   }
 }

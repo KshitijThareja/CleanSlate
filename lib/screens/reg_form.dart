@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:intl/intl.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:hms/animations/animations.dart';
+import 'package:hms/screens/my_homepage.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,6 +47,11 @@ class RegFormState extends State<RegForm> {
         automaticallyImplyLeading: false,
         title: const Text("HMS"),
         backgroundColor: const Color.fromARGB(255, 243, 81, 81),
+        leading: BackButton(
+          onPressed: () {
+            Navigator.of(context).push(CustomPageRoute(child: HomeScreen()));
+          },
+        ),
       ),
       body: Form(
         key: formKey,
@@ -143,6 +150,7 @@ class RegFormState extends State<RegForm> {
                       'datetime': dtString,
                     },
                   );
+                  Navigator.pop(context);
                   // var collection =
                   //     FirebaseFirestore.instance.collection('clients');
                   // collection
