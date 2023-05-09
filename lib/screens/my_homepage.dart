@@ -51,7 +51,7 @@ class HomeScreenState extends State<HomeScreen> {
         ),
         BottomNavyBarItem(
           icon: const Icon(Icons.person),
-          title: const Text('Users'),
+          title: const Text('Account'),
           activeColor: Colors.orange,
           inactiveColor: _inactiveColor,
           textAlign: TextAlign.center,

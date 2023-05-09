@@ -199,8 +199,8 @@ class _UserInformationState extends State<UserInformation> {
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
       .collection('clients')
       .where('email', isEqualTo: FirebaseAuth.instance.currentUser?.email)
-      .orderBy('datetime', descending: true)
-      .snapshots(includeMetadataChanges: true);
+      // .orderBy('datetime', descending: true)
+      .snapshots();
 
   @override
   Widget build(BuildContext context) {
