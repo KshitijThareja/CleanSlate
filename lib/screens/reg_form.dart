@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:intl/intl.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,6 +17,8 @@ class RegForm extends StatefulWidget {
 }
 
 class RegFormState extends State<RegForm> {
+  File? imageFile;
+
   FocusNode searchFocusNode = FocusNode();
   FocusNode textFieldFocusNode = FocusNode();
   final TextEditingController _roomnoTextController = TextEditingController();
@@ -48,7 +52,7 @@ class RegFormState extends State<RegForm> {
         child: ListView(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.fromLTRB(0, 90, 0, 0),
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
               child: Container(
                 child: TextFormField(
                   decoration: const InputDecoration(
@@ -123,23 +127,87 @@ class RegFormState extends State<RegForm> {
                 ],
               ),
             ),
-            ElevatedButton(
-                child: Text('Submit'),
-                onPressed: () {
-                  CollectionReference collref =
-                      FirebaseFirestore.instance.collection('client');
-                  collref.add(
-                    {
-                      'complaintType': selectedType,
-                      'description': _descriptionTextController.text,
-                      'roomno': _roomnoTextController.text,
-                      'date': currentDate,
-                    },
-                  );
-                })
+            Column(
+              children: [
+                if (imageFile != null)
+                  Container(
+                    width: 640,
+                    height: 280,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: Colors.white70,
+                      image: DecorationImage(
+                        image: FileImage(imageFile!),
+                      ),
+                    ),
+                  ),
+                if (imageFile == null)
+                  Container(
+                    width: 640,
+                    height: 280,
+                    alignment: Alignment.center,
+                    decoration: const BoxDecoration(
+                      color: Colors.white70,
+                    ),
+                    child: const Text('Image should appear here'),
+                  ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 80, 0, 0),
+                  child: SizedBox(
+                    height: 50,
+                    width: 150,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                      ),
+                      child: Text('Camera'),
+                      onPressed: () => getImage(source: ImageSource.camera),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+                  child: SizedBox(
+                    height: 50,
+                    width: 300,
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                        ),
+                        child: Text('Submit'),
+                        onPressed: () {
+                          CollectionReference collref =
+                              FirebaseFirestore.instance.collection('client');
+                          collref.add(
+                            {
+                              'complaintType': selectedType,
+                              'description': _descriptionTextController.text,
+                              'roomno': _roomnoTextController.text,
+                              'date': currentDate,
+                            },
+                          );
+                        }),
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       ),
     );
+  }
+
+  void getImage({required ImageSource source}) async {
+    final file = await ImagePicker().pickImage(source: source);
+
+    if (file?.path != null) {
+      setState(() {
+        imageFile = File(file!.path);
+      });
+    }
   }
 }
