@@ -7,6 +7,7 @@ import 'package:hms/animations/animations.dart';
 import 'package:hms/screens/my_homepage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +22,7 @@ class RegForm extends StatefulWidget {
 
 class RegFormState extends State<RegForm> {
   File? imageFile;
-
+  var imageUrl;
   FocusNode searchFocusNode = FocusNode();
   FocusNode textFieldFocusNode = FocusNode();
   final TextEditingController _roomnoTextController = TextEditingController();
@@ -47,180 +48,221 @@ class RegFormState extends State<RegForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: const Text("HMS"),
-        backgroundColor: const Color.fromARGB(255, 243, 81, 81),
-        leading: BackButton(
-          onPressed: () {
-            Navigator.of(context).push(CustomPageRoute(child: HomeScreen()));
-          },
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: const Text("HMS"),
+          backgroundColor: const Color.fromARGB(255, 243, 81, 81),
+          leading: BackButton(
+            onPressed: () {
+              Navigator.of(context).push(CustomPageRoute(child: HomeScreen()));
+            },
+          ),
         ),
-      ),
-      body: Form(
-        key: formKey,
-        // autovalidate: true,
-        child: ListView(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-              child: Container(
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                      contentPadding: EdgeInsets.only(
-                        left: 10.0,
-                        right: 10.0,
-                      ),
-                      labelText: "Room Number",
-                      prefixIcon: Icon(Icons.numbers),
-                      hintStyle: TextStyle(color: Colors.grey)),
-                  keyboardType: TextInputType.number,
-                  validator: (value) {
-                    if (value?.isEmpty ?? true) {
-                      return 'Room number is Required';
-                    }
-                    return null;
-                  },
-                  controller: _roomnoTextController,
+        body: Form(
+          key: formKey,
+          // autovalidate: true,
+          child: ListView(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                child: Container(
+                  child: TextFormField(
+                    decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.only(
+                          left: 10.0,
+                          right: 10.0,
+                        ),
+                        labelText: "Room Number",
+                        prefixIcon: Icon(Icons.numbers),
+                        hintStyle: TextStyle(color: Colors.grey)),
+                    keyboardType: TextInputType.number,
+                    validator: (value) {
+                      if (value?.isEmpty ?? true) {
+                        return 'Room number is Required';
+                      }
+                      return null;
+                    },
+                    controller: _roomnoTextController,
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
-              child: Container(
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                      contentPadding: EdgeInsets.only(
-                        left: 10.0,
-                        right: 10.0,
-                      ),
-                      labelText: "Description",
-                      prefixIcon: Icon(Icons.pending),
-                      hintStyle: TextStyle(color: Colors.grey)),
-                  validator: (value) {
-                    if (value?.isEmpty ?? true) {
-                      return 'Description is Required';
-                    }
-                    return null;
-                  },
-                  controller: _descriptionTextController,
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+                child: Container(
+                  child: TextFormField(
+                    decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.only(
+                          left: 10.0,
+                          right: 10.0,
+                        ),
+                        labelText: "Description",
+                        prefixIcon: Icon(Icons.pending),
+                        hintStyle: TextStyle(color: Colors.grey)),
+                    validator: (value) {
+                      if (value?.isEmpty ?? true) {
+                        return 'Description is Required';
+                      }
+                      return null;
+                    },
+                    controller: _descriptionTextController,
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  // Icon(Icons.arrow_drop_down),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    // Icon(Icons.arrow_drop_down),
 
-                  DropdownButton(
-                      items: _complaintType
-                          .map((value) => DropdownMenuItem(
-                                value: value,
-                                child: Text(
-                                  value,
-                                  style: const TextStyle(color: Colors.black),
-                                ),
-                              ))
-                          .toList(),
-                      onChanged: (selectedComplaintType) {
-                        setState(() {
-                          selectedType = selectedComplaintType;
-                        });
-                      },
-                      value: selectedType,
-                      isExpanded: false,
-                      hint: const Text(
-                        'Complaint Type',
-                        style: TextStyle(color: Colors.black),
-                      )),
-                ],
+                    DropdownButton(
+                        items: _complaintType
+                            .map((value) => DropdownMenuItem(
+                                  value: value,
+                                  child: Text(
+                                    value,
+                                    style: const TextStyle(color: Colors.black),
+                                  ),
+                                ))
+                            .toList(),
+                        onChanged: (selectedComplaintType) {
+                          setState(() {
+                            selectedType = selectedComplaintType;
+                          });
+                        },
+                        value: selectedType,
+                        isExpanded: false,
+                        hint: const Text(
+                          'Complaint Type',
+                          style: TextStyle(color: Colors.black),
+                        )),
+                  ],
+                ),
               ),
-            ),
-            Column(
-              children: [
-                if (imageFile != null)
-                  Container(
-                    width: 640,
-                    height: 280,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: Colors.white70,
-                      image: DecorationImage(
-                        image: FileImage(imageFile!),
-                      ),
-                    ),
-                  ),
-                if (imageFile == null)
-                  Container(
-                    width: 640,
-                    height: 280,
-                    alignment: Alignment.center,
-                    decoration: const BoxDecoration(
-                      color: Colors.white70,
-                    ),
-                    child: const Text('Image should appear here'),
-                  ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 80, 0, 0),
-                  child: SizedBox(
-                    height: 50,
-                    width: 150,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50),
+              Column(
+                children: [
+                  if (imageFile != null)
+                    Container(
+                      width: 640,
+                      height: 280,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: Colors.white70,
+                        image: DecorationImage(
+                          image: FileImage(imageFile!),
                         ),
                       ),
-                      child: Text('Camera'),
-                      onPressed: () => getImage(source: ImageSource.camera),
+                    ),
+                  if (imageFile == null)
+                    Container(
+                      width: 640,
+                      height: 280,
+                      alignment: Alignment.center,
+                      decoration: const BoxDecoration(
+                        color: Colors.white70,
+                      ),
+                      child: const Text('Image should appear here'),
+                    ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 80, 0, 0),
+                    child: SizedBox(
+                      height: 50,
+                      width: 150,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                        ),
+                        child: Text('Camera'),
+                        onPressed: () async {
+                          ImagePicker imagePicker = ImagePicker();
+                          XFile? file = await imagePicker.pickImage(
+                              source: ImageSource.camera);
+                          if (file?.path != null) {
+                            setState(() {
+                              imageFile = File(file!.path);
+                            });
+                          }
+                          String uniqueFileName =
+                              DateTime.now().millisecondsSinceEpoch.toString();
+                          Reference referenceRoot =
+                              FirebaseStorage.instance.ref();
+                          Reference referenceDirImages =
+                              referenceRoot.child('images');
+                          Reference referenceImageToUpload =
+                              referenceDirImages.child(uniqueFileName);
+                          try {
+                            //Store the file
+                            await referenceImageToUpload
+                                .putFile(File(file!.path));
+                            //Success: get the download URL
+                            imageUrl =
+                                await referenceImageToUpload.getDownloadURL();
+                          } catch (error) {
+                            //Some error occurred
+                          }
+                        },
+                        // getImage(source: ImageSource.camera),
+                      ),
                     ),
                   ),
-                ),
-            ElevatedButton(
-                child: const Text('Submit'),
-                onPressed: () {
-                  CollectionReference collref =
-                      FirebaseFirestore.instance.collection('clients');
-                  collref.add(
-                    {
-                      'complaintType': selectedType,
-                      'description': _descriptionTextController.text,
-                      'roomno': _roomnoTextController.text,
-                      'date': currentDate,
-                      'email': email,
-                      'status': "Pending",
-                      'datetime': dtString,
-                    },
-                  );
-                  Navigator.pop(context);
-                  // var collection =
-                  //     FirebaseFirestore.instance.collection('clients');
-                  // collection
-                  //     .doc(uid) // <-- Document ID
-                  //     .set(
-                  //       {
-                  //         'complaintType': selectedType,
-                  //         'description': _descriptionTextController.text,
-                  //         'roomno': _roomnoTextController.text,
-                  //         'date': currentDate,
-                  //         'email': email,
-                  //       },
-                  //     ) // <-- Your data
-                  //     .then((_) => print('Added'))
-                  //     .catchError((error) => print('Add failed: $error'));
-             })
-          ],
-        ),
-      ],
-      ),
-    ));
+                  ElevatedButton(
+                      child: const Text('Submit'),
+                      onPressed: () {
+                        CollectionReference collref =
+                            FirebaseFirestore.instance.collection('clients');
+                        collref.add(
+                          {
+                            'complaintType': selectedType,
+                            'description': _descriptionTextController.text,
+                            'roomno': _roomnoTextController.text,
+                            'date': currentDate,
+                            'email': email,
+                            'status': "Pending",
+                            'datetime': dtString,
+                            'image': imageUrl,
+                          },
+                        );
+                        Navigator.pop(context);
+                        // var collection =
+                        //     FirebaseFirestore.instance.collection('clients');
+                        // collection
+                        //     .doc(uid) // <-- Document ID
+                        //     .set(
+                        //       {
+                        //         'complaintType': selectedType,
+                        //         'description': _descriptionTextController.text,
+                        //         'roomno': _roomnoTextController.text,
+                        //         'date': currentDate,
+                        //         'email': email,
+                        //       },
+                        //     ) // <-- Your data
+                        //     .then((_) => print('Added'))
+                        //     .catchError((error) => print('Add failed: $error'));
+                      })
+                ],
+              ),
+            ],
+          ),
+        ));
   }
 
   void getImage({required ImageSource source}) async {
-    final file = await ImagePicker().pickImage(source: source);
-
+    ImagePicker imagePicker = ImagePicker();
+    XFile? file = await imagePicker.pickImage(source: source);
+    String uniqueFileName = DateTime.now().millisecondsSinceEpoch.toString();
+    Reference referenceRoot = FirebaseStorage.instance.ref();
+    Reference referenceDirImages = referenceRoot.child('images');
+    Reference referenceImageToUpload = referenceDirImages.child(uniqueFileName);
+    try {
+      //Store the file
+      await referenceImageToUpload.putFile(File(file!.path));
+      //Success: get the download URL
+      var imageUrl = await referenceImageToUpload.getDownloadURL();
+    } catch (error) {
+      //Some error occurred
+    }
     if (file?.path != null) {
       setState(() {
         imageFile = File(file!.path);

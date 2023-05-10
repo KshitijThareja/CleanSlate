@@ -4,6 +4,7 @@ import 'package:hms/screens/reg_form.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 
 class Register extends StatelessWidget {
   @override
@@ -47,19 +48,6 @@ class Register extends StatelessWidget {
           centerTitle: true,
           backgroundColor: const Color.fromARGB(255, 243, 81, 81),
         ),
-        floatingActionButton: GestureDetector(
-          child: FloatingActionButton.extended(
-            onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => RegForm()));
-
-              // Add your onPressed code here!
-            },
-            label: const Text('Register complaint'),
-            icon: const Icon(Icons.add),
-            backgroundColor: const Color.fromARGB(255, 243, 81, 81),
-          ),
-        ),
         body: TabBarView(children: [
           PendingUserInformation(),
           CompleteUserInformation(),
@@ -76,6 +64,12 @@ class PendingUserInformation extends StatefulWidget {
 }
 
 class _PendingUserInformationState extends State<PendingUserInformation> {
+  var today = DateTime.now();
+  var dateFormat = DateFormat('dd-MM-yyyy');
+  var timeFormat = DateFormat('kk:mm:ss');
+  late String currentDate = dateFormat.format(today);
+  late String currentTime = timeFormat.format(today);
+  late String dtString = today.toString();
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
       .collection('clients')
       .where(
@@ -129,6 +123,11 @@ class _PendingUserInformationState extends State<PendingUserInformation> {
                                     child: SingleChildScrollView(
                                       child: ListBody(
                                         children: <Widget>[
+                                          Image.network(
+                                            data['image'],
+                                            height: 200,
+                                            width: 200,
+                                          ),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
@@ -203,6 +202,8 @@ class _PendingUserInformationState extends State<PendingUserInformation> {
                                             .update(
                                               {
                                                 'status': 'Completed',
+                                                'cdate': currentDate,
+                                                'ctime': currentTime,
                                               },
                                             ) // <-- Your data
                                             .then((_) => print('Added'))
@@ -299,6 +300,11 @@ class _CompleteUserInformationState extends State<CompleteUserInformation> {
                                     child: SingleChildScrollView(
                                       child: ListBody(
                                         children: <Widget>[
+                                          Image.network(
+                                            data['image'],
+                                            height: 200,
+                                            width: 200,
+                                          ),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
@@ -358,6 +364,27 @@ class _CompleteUserInformationState extends State<CompleteUserInformation> {
                                         Navigator.pop(context);
                                       },
                                       child: const Text('Back'),
+                                    ),
+                                    CupertinoDialogAction(
+                                      isDestructiveAction: true,
+                                      onPressed: () {
+                                        var collection = FirebaseFirestore
+                                            .instance
+                                            .collection('clients');
+                                        collection
+                                            .doc(document
+                                                .id) // <-- Doc ID where data should be updated.
+                                            .update(
+                                              {
+                                                'status': 'Pending',
+                                              },
+                                            ) // <-- Your data
+                                            .then((_) => print('Added'))
+                                            .catchError((error) =>
+                                                print('Add failed: $error'));
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text('Pending'),
                                     ),
                                   ],
                                 ));
