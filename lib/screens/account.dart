@@ -1,11 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:hms/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:path/path.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'dart:io';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({Key? key}) : super(key: key);
@@ -21,24 +22,25 @@ class _AccountScreenState extends State<AccountScreen> {
   Color primary = const Color(0xffeef444c);
   String profilePicLink = " ";
 
-  void pickUploadProfilePic() async {
-    final image = await ImagePicker().pickImage(
-      source: ImageSource.gallery,
-      maxHeight: 512,
-      maxWidth: 512,
-      imageQuality: 90,
-    );
+  File? imageFile;
 
-    Reference ref = FirebaseStorage.instance.ref();
+  // void pickUploadProfilePic() async {
+  //   final image = await ImagePicker().pickImage(
+  //     source: ImageSource.gallery,
+  //     maxHeight: 512,
+  //     maxWidth: 512,
+  //     imageQuality: 90,
+  //   );
 
-    await ref.putFile(File(image!.path));
+  //   Reference ref = FirebaseStorage.instance.ref();
 
-    ref.getDownloadURL().then((value) async {
-      setState(() {
-        profilePicLink = value;
-      });
-    });
-  }
+  //   await ref.putFile(File(image!.path));
+
+  //   ref.getDownloadURL().then((value) async {
+  //     setState(() {
+  //       profilePicLink = value;
+  //     });
+  //   });
 
   @override
   Widget build(BuildContext context) {
@@ -48,29 +50,20 @@ class _AccountScreenState extends State<AccountScreen> {
           child: Column(
             children: <Widget>[
               GestureDetector(
-                onTap: () {
-                  pickUploadProfilePic();
-                },
+                onTap: () => getImage(source: ImageSource.gallery),
                 child: Container(
                   margin: const EdgeInsets.only(top: 80, bottom: 24),
                   height: 120,
                   width: 120,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                    color: primary,
-                  ),
-                  child: Center(
-                    child: profilePicLink == " "
-                        ? const Icon(
-                            Icons.person,
-                            color: Colors.white,
-                            size: 80,
-                          )
-                        : ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Image.network(profilePicLink),
-                          ),
+                      color: primary,
+                      image: DecorationImage(image: FileImage(imageFile!)),
+                      borderRadius: BorderRadius.circular(100)),
+                  child: const Icon(
+                    Icons.person,
+                    color: Colors.white,
+                    size: 80,
                   ),
                 ),
               ),
@@ -79,8 +72,10 @@ class _AccountScreenState extends State<AccountScreen> {
                 onPressed: () {
                   FirebaseAuth.instance.signOut().then((value) {
                     print("Signed Out");
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginScreen()));
                   });
                 },
               ),
@@ -89,6 +84,16 @@ class _AccountScreenState extends State<AccountScreen> {
         ),
       ),
     );
+  }
+
+  void getImage({required ImageSource source}) async {
+    final file = await ImagePicker().pickImage(source: source);
+
+    if (file?.path != null) {
+      setState(() {
+        imageFile = File(file!.path);
+      });
+    }
   }
 }
 

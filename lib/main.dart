@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hms/screens/home.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:hms/screens/login.dart';
 import 'firebase_options.dart';
-import 'package:hms/cam_functionality/camera.dart';
+import 'package:hms/screens/account.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,4 +23,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

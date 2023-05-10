@@ -5,6 +5,8 @@ import 'package:intl/intl.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hms/animations/animations.dart';
 import 'package:hms/screens/my_homepage.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,6 +20,8 @@ class RegForm extends StatefulWidget {
 }
 
 class RegFormState extends State<RegForm> {
+  File? imageFile;
+
   FocusNode searchFocusNode = FocusNode();
   FocusNode textFieldFocusNode = FocusNode();
   final TextEditingController _roomnoTextController = TextEditingController();
@@ -59,7 +63,7 @@ class RegFormState extends State<RegForm> {
         child: ListView(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.fromLTRB(0, 90, 0, 0),
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
               child: Container(
                 child: TextFormField(
                   decoration: const InputDecoration(
@@ -134,6 +138,46 @@ class RegFormState extends State<RegForm> {
                 ],
               ),
             ),
+            Column(
+              children: [
+                if (imageFile != null)
+                  Container(
+                    width: 640,
+                    height: 280,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: Colors.white70,
+                      image: DecorationImage(
+                        image: FileImage(imageFile!),
+                      ),
+                    ),
+                  ),
+                if (imageFile == null)
+                  Container(
+                    width: 640,
+                    height: 280,
+                    alignment: Alignment.center,
+                    decoration: const BoxDecoration(
+                      color: Colors.white70,
+                    ),
+                    child: const Text('Image should appear here'),
+                  ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 80, 0, 0),
+                  child: SizedBox(
+                    height: 50,
+                    width: 150,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                      ),
+                      child: Text('Camera'),
+                      onPressed: () => getImage(source: ImageSource.camera),
+                    ),
+                  ),
+                ),
             ElevatedButton(
                 child: const Text('Submit'),
                 onPressed: () {
@@ -166,10 +210,21 @@ class RegFormState extends State<RegForm> {
                   //     ) // <-- Your data
                   //     .then((_) => print('Added'))
                   //     .catchError((error) => print('Add failed: $error'));
-                })
+             })
           ],
         ),
+      ],
       ),
-    );
+    ));
+  }
+
+  void getImage({required ImageSource source}) async {
+    final file = await ImagePicker().pickImage(source: source);
+
+    if (file?.path != null) {
+      setState(() {
+        imageFile = File(file!.path);
+      });
+    }
   }
 }
