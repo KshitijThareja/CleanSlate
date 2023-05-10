@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:intl/intl.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:hms/animations/animations.dart';
+import 'package:hms/screens/my_homepage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
@@ -25,10 +28,13 @@ class RegFormState extends State<RegForm> {
   final TextEditingController _descriptionTextController =
       TextEditingController();
 
+  String? email = FirebaseAuth.instance.currentUser?.email;
+  String? uid = FirebaseAuth.instance.currentUser?.uid;
   var selectedType;
   var today = DateTime.now();
   var dateFormat = DateFormat('dd-MM-yyyy');
   late String currentDate = dateFormat.format(today);
+  late String dtString = today.toString();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final List<String> _complaintType = <String>[
     'Electricity',
@@ -45,6 +51,11 @@ class RegFormState extends State<RegForm> {
         automaticallyImplyLeading: false,
         title: const Text("HMS"),
         backgroundColor: const Color.fromARGB(255, 243, 81, 81),
+        leading: BackButton(
+          onPressed: () {
+            Navigator.of(context).push(CustomPageRoute(child: HomeScreen()));
+          },
+        ),
       ),
       body: Form(
         key: formKey,
@@ -167,38 +178,44 @@ class RegFormState extends State<RegForm> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-                  child: SizedBox(
-                    height: 50,
-                    width: 300,
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                        ),
-                        child: Text('Submit'),
-                        onPressed: () {
-                          CollectionReference collref =
-                              FirebaseFirestore.instance.collection('client');
-                          collref.add(
-                            {
-                              'complaintType': selectedType,
-                              'description': _descriptionTextController.text,
-                              'roomno': _roomnoTextController.text,
-                              'date': currentDate,
-                            },
-                          );
-                        }),
-                  ),
-                ),
-              ],
-            )
+            ElevatedButton(
+                child: const Text('Submit'),
+                onPressed: () {
+                  CollectionReference collref =
+                      FirebaseFirestore.instance.collection('clients');
+                  collref.add(
+                    {
+                      'complaintType': selectedType,
+                      'description': _descriptionTextController.text,
+                      'roomno': _roomnoTextController.text,
+                      'date': currentDate,
+                      'email': email,
+                      'status': "pending",
+                      'datetime': dtString,
+                    },
+                  );
+                  Navigator.pop(context);
+                  // var collection =
+                  //     FirebaseFirestore.instance.collection('clients');
+                  // collection
+                  //     .doc(uid) // <-- Document ID
+                  //     .set(
+                  //       {
+                  //         'complaintType': selectedType,
+                  //         'description': _descriptionTextController.text,
+                  //         'roomno': _roomnoTextController.text,
+                  //         'date': currentDate,
+                  //         'email': email,
+                  //       },
+                  //     ) // <-- Your data
+                  //     .then((_) => print('Added'))
+                  //     .catchError((error) => print('Add failed: $error'));
+             })
           ],
         ),
+      ],
       ),
-    );
+    ));
   }
 
   void getImage({required ImageSource source}) async {

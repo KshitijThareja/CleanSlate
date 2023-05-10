@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hms/screens/custom_animated_bottom_bar.dart';
 import 'package:hms/screens/reg_complaint.dart';
+import 'package:hms/screens/account.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -13,12 +14,6 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: const Text("HOME"),
-          centerTitle: true,
-          backgroundColor: const Color.fromARGB(255, 243, 81, 81),
-        ),
         body: getBody(),
         bottomNavigationBar: _buildBottomBar());
   }
@@ -51,7 +46,7 @@ class HomeScreenState extends State<HomeScreen> {
         ),
         BottomNavyBarItem(
           icon: const Icon(Icons.person),
-          title: const Text('Users'),
+          title: const Text('Account'),
           activeColor: Colors.orange,
           inactiveColor: _inactiveColor,
           textAlign: TextAlign.center,
@@ -87,10 +82,7 @@ class HomeScreenState extends State<HomeScreen> {
         ),
         body: Container(
           alignment: Alignment.center,
-          child: const Text(
-            "Account",
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-          ),
+          child: const AccountScreen(),
         ),
       ),
     ];

@@ -5,10 +5,28 @@ import 'package:hms/screens/reusable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hms/screens/home.dart';
 import 'package:hms/animations/animations.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hms/screens/admin/account.dart';
 
 class LoginScreen extends StatelessWidget {
-  LoginScreen();
+  const LoginScreen();
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: const _Body(),
+    );
+  }
+}
 
+class _Body extends StatefulWidget {
+  const _Body();
+
+  @override
+  State<_Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<_Body> {
   final TextEditingController _passwordTextController = TextEditingController();
 
   final TextEditingController _emailTextController = TextEditingController();
@@ -137,9 +155,7 @@ class LoginScreen extends StatelessWidget {
                                               password:
                                                   _passwordTextController.text)
                                           .then((value) {
-                                        Navigator.of(context).push(
-                                            CustomPageRoute(
-                                                child: HomeScreen()));
+                                        route();
                                       }).onError((error, stackTrace) {
                                         print("Error ${error.toString()}");
                                       });
@@ -158,8 +174,8 @@ class LoginScreen extends StatelessWidget {
                                         GestureDetector(
                                           onTap: () {
                                             Navigator.of(context).push(
-                                            CustomPageRoute(
-                                                child: const SignupScreen()));
+                                                CustomPageRoute(
+                                                    child: SignupScreen()));
                                           },
                                           child: const Text(
                                             " Sign Up",
@@ -186,5 +202,34 @@ class LoginScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void route() {
+    User? user = FirebaseAuth.instance.currentUser;
+    var kk = FirebaseFirestore.instance
+        .collection('users')
+        .doc(user!.email)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        if (documentSnapshot.get('userType') == "Warden") {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const AccountScreen(),
+            ),
+          );
+        } else {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomeScreen(),
+            ),
+          );
+        }
+      } else {
+        print('Document does not exist on the database');
+      }
+    });
   }
 }
