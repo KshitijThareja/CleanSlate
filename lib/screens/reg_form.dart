@@ -146,7 +146,7 @@ class RegFormState extends State<RegForm> {
                       'roomno': _roomnoTextController.text,
                       'date': currentDate,
                       'email': email,
-                      'status': "pending",
+                      'status': "Pending",
                       'datetime': dtString,
                     },
                   );

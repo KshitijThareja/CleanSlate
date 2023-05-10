@@ -79,10 +79,6 @@ class _PendingUserInformationState extends State<PendingUserInformation> {
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
       .collection('clients')
       .where(
-        'email',
-        isEqualTo: FirebaseAuth.instance.currentUser?.email,
-      )
-      .where(
         'status',
         isEqualTo: 'Pending',
       )
@@ -187,11 +183,34 @@ class _PendingUserInformationState extends State<PendingUserInformation> {
                                   ),
                                   actions: <CupertinoDialogAction>[
                                     CupertinoDialogAction(
+                                      /// This parameter indicates this action is the default,
+                                      /// and turns the action's text to bold text.
                                       isDefaultAction: true,
                                       onPressed: () {
                                         Navigator.pop(context);
                                       },
                                       child: const Text('Back'),
+                                    ),
+                                    CupertinoDialogAction(
+                                      isDestructiveAction: true,
+                                      onPressed: () {
+                                        var collection = FirebaseFirestore
+                                            .instance
+                                            .collection('clients');
+                                        collection
+                                            .doc(document
+                                                .id) // <-- Doc ID where data should be updated.
+                                            .update(
+                                              {
+                                                'status': 'Completed',
+                                              },
+                                            ) // <-- Your data
+                                            .then((_) => print('Added'))
+                                            .catchError((error) =>
+                                                print('Add failed: $error'));
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text('Completed'),
                                     ),
                                   ],
                                 ));
@@ -229,10 +248,6 @@ class CompleteUserInformation extends StatefulWidget {
 class _CompleteUserInformationState extends State<CompleteUserInformation> {
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
       .collection('clients')
-      .where(
-        'email',
-        isEqualTo: FirebaseAuth.instance.currentUser?.email,
-      )
       .where(
         'status',
         isEqualTo: 'Completed',

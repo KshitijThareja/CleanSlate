@@ -82,7 +82,7 @@ class Main extends StatelessWidget {
                               vertical: 15, horizontal: 40)),
                       onPressed: () {
                         Navigator.of(context).push(CustomPageRoute(
-                            child: LoginScreen()));
+                            child: const LoginScreen()));
                       },
                       child: const Text("Login"),
                     ),

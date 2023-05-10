@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hms/screens/home.dart';
 import 'package:hms/animations/animations.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hms/screens/admin/account.dart';
+import 'package:hms/screens/admin/my_homepage.dart';
 
 class SignupScreen extends StatelessWidget {
   const SignupScreen();
@@ -280,7 +280,7 @@ class _BodyState extends State<_Body> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => const AccountScreen(),
+              builder: (context) => AdminHomeScreen(),
             ),
           );
         } else {

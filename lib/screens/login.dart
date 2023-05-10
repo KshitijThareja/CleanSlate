@@ -6,7 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hms/screens/home.dart';
 import 'package:hms/animations/animations.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hms/screens/admin/account.dart';
+import 'package:hms/screens/admin/my_homepage.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen();
@@ -175,7 +175,7 @@ class _BodyState extends State<_Body> {
                                           onTap: () {
                                             Navigator.of(context).push(
                                                 CustomPageRoute(
-                                                    child: SignupScreen()));
+                                                    child: const SignupScreen()));
                                           },
                                           child: const Text(
                                             " Sign Up",
@@ -216,7 +216,7 @@ class _BodyState extends State<_Body> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => const AccountScreen(),
+              builder: (context) => AdminHomeScreen(),
             ),
           );
         } else {
