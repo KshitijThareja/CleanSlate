@@ -6,7 +6,7 @@ import 'dart:io';
 import 'package:path/path.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'dart:io';
+import 'package:hms/animations/animations.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({Key? key}) : super(key: key);
@@ -48,36 +48,63 @@ class _AccountScreenState extends State<AccountScreen> {
       body: SingleChildScrollView(
         child: Center(
           child: Column(
-            children: <Widget>[
+            children: [
               GestureDetector(
                 onTap: () => getImage(source: ImageSource.gallery),
-                child: Container(
-                  margin: const EdgeInsets.only(top: 80, bottom: 24),
-                  height: 120,
-                  width: 120,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                      color: primary,
-                      image: DecorationImage(image: FileImage(imageFile!)),
-                      borderRadius: BorderRadius.circular(100)),
-                  child: const Icon(
-                    Icons.person,
-                    color: Colors.white,
-                    size: 80,
+                child: Padding(
+                  padding: const EdgeInsets.all(100.0),
+                  child: Column(
+                    children: [
+                      if (imageFile != null)
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                          child: Container(
+                            height: 120,
+                            width: 120,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: primary,
+                              image: DecorationImage(
+                                image: FileImage(imageFile!),
+                                fit: BoxFit.fill
+                              )),
+                          ),
+                        ),
+                      if (imageFile == null)
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+                          child: Container(
+                            height: 120,
+                            width: 120,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: primary,
+                              borderRadius: BorderRadius.circular(100),
+                            ),
+                            child: const Icon(
+                              Icons.person,
+                              color: Colors.white,
+                              size: 80,
+                            ),
+                          ),
+                        ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 70, 0, 0),
+                        child: ElevatedButton(
+                          child: const Text("Logout"),
+                          onPressed: () {
+                            FirebaseAuth.instance.signOut().then((value) {
+                              print("Signed Out");
+                              Navigator.of(context).push(
+                                  CustomPageRoute(child: const LoginScreen()));
+                            });
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-              ElevatedButton(
-                child: const Text("Logout"),
-                onPressed: () {
-                  FirebaseAuth.instance.signOut().then((value) {
-                    print("Signed Out");
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const LoginScreen()));
-                  });
-                },
               ),
             ],
           ),
@@ -87,7 +114,11 @@ class _AccountScreenState extends State<AccountScreen> {
   }
 
   void getImage({required ImageSource source}) async {
-    final file = await ImagePicker().pickImage(source: source);
+    final file = await ImagePicker().pickImage(
+      source: source,
+      maxHeight: 512,
+      maxWidth: 512,
+    );
 
     if (file?.path != null) {
       setState(() {
