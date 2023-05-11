@@ -9,6 +9,8 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 
+import 'package:permission_handler/permission_handler.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -161,7 +163,8 @@ class RegFormState extends State<RegForm> {
                       decoration: const BoxDecoration(
                         color: Colors.white70,
                       ),
-                      child: const Text('Image should appear here'),
+                      child:
+                          const Text('Click the camera button to add images'),
                     ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 80, 0, 0),
@@ -199,6 +202,9 @@ class RegFormState extends State<RegForm> {
                             //Success: get the download URL
                             imageUrl =
                                 await referenceImageToUpload.getDownloadURL();
+                            print('Image URL: ${imageUrl.toString()}');
+                            //Success: add the image to the list
+                            // setState(() {
                           } catch (error) {
                             //Some error occurred
                           }
@@ -248,25 +254,26 @@ class RegFormState extends State<RegForm> {
         ));
   }
 
-  void getImage({required ImageSource source}) async {
-    ImagePicker imagePicker = ImagePicker();
-    XFile? file = await imagePicker.pickImage(source: source);
-    String uniqueFileName = DateTime.now().millisecondsSinceEpoch.toString();
-    Reference referenceRoot = FirebaseStorage.instance.ref();
-    Reference referenceDirImages = referenceRoot.child('images');
-    Reference referenceImageToUpload = referenceDirImages.child(uniqueFileName);
-    try {
-      //Store the file
-      await referenceImageToUpload.putFile(File(file!.path));
-      //Success: get the download URL
-      var imageUrl = await referenceImageToUpload.getDownloadURL();
-    } catch (error) {
-      //Some error occurred
-    }
-    if (file?.path != null) {
-      setState(() {
-        imageFile = File(file!.path);
-      });
-    }
-  }
+  // void getImage({required ImageSource source}) async {
+  //   ImagePicker imagePicker = ImagePicker();
+  //   XFile? file = await imagePicker.pickImage(source: source);
+  //   String uniqueFileName = DateTime.now().millisecondsSinceEpoch.toString();
+  //   Reference referenceRoot = FirebaseStorage.instance.ref();
+  //   Reference referenceDirImages = referenceRoot.child('images');
+  //   Reference referenceImageToUpload = referenceDirImages.child(uniqueFileName);
+  //   try {
+  //     //Store the file
+  //     await referenceImageToUpload.putFile(File(file!.path));
+  //     //Success: get the download URL
+  //     var imageUrl = await referenceImageToUpload.getDownloadURL();
+  //     // print(imageUrl);
+  //   } catch (error) {
+  //     //Some error occurred
+  //   }
+  //   if (file?.path != null) {
+  //     setState(() {
+  //       imageFile = File(file!.path);
+  //     });
+  //   }
+  // }
 }
