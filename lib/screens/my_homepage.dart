@@ -13,9 +13,7 @@ class HomeScreenState extends State<HomeScreen> {
   final _inactiveColor = const Color.fromARGB(255, 99, 97, 97);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: getBody(),
-        bottomNavigationBar: _buildBottomBar());
+    return Scaffold(body: getBody(), bottomNavigationBar: _buildBottomBar());
   }
 
   Widget _buildBottomBar() {

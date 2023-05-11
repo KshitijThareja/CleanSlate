@@ -7,6 +7,7 @@ import 'package:hms/screens/home.dart';
 import 'package:hms/animations/animations.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hms/screens/admin/my_homepage.dart';
+import 'package:hms/screens/forgot.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen();
@@ -137,13 +138,38 @@ class _BodyState extends State<_Body> {
                                           controller: _passwordTextController),
                                     ),
                                   ),
-                                  const Padding(
-                                    padding: EdgeInsets.fromLTRB(20, 40, 20, 0),
-                                    child: Text(
-                                      "Forgot Password?",
-                                      style: TextStyle(color: Colors.grey),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(0, 40, 0, 0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            Navigator.of(context).push(
+                                                CustomPageRoute(
+                                                    child:
+                                                        const ForgotScreen()));
+                                          },
+                                          child: const Text(
+                                            "Forgot Password?",
+                                            style:
+                                                TextStyle(color: Colors.grey),
+                                          ),
+                                        )
+                                      ],
                                     ),
                                   ),
+                                  // const Padding(
+                                  //   padding: EdgeInsets.fromLTRB(20, 40, 20, 0),
+
+                                  //   child:
+                                  //   Text(
+                                  //     "Forgot Password?",
+                                  //     style: TextStyle(color: Colors.grey),
+                                  //   ),
+
                                   Padding(
                                     padding:
                                         const EdgeInsets.fromLTRB(0, 30, 0, 10),
@@ -159,8 +185,24 @@ class _BodyState extends State<_Body> {
                                       }).onError((error, stackTrace) {
                                         print("Error ${error.toString()}");
                                       });
+                                      var collection = FirebaseFirestore
+                                          .instance
+                                          .collection('users');
+                                      collection
+                                          .doc(_emailTextController
+                                              .text) // <-- Document ID
+                                          .update(
+                                            {
+                                              'password':
+                                                  _passwordTextController.text,
+                                            },
+                                          ) // <-- Your data
+                                          .then((_) => print('Updated'))
+                                          .catchError((error) =>
+                                              print('Update failed: $error'));
                                     }),
                                   ),
+
                                   Padding(
                                     padding:
                                         const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -175,7 +217,8 @@ class _BodyState extends State<_Body> {
                                           onTap: () {
                                             Navigator.of(context).push(
                                                 CustomPageRoute(
-                                                    child: const SignupScreen()));
+                                                    child:
+                                                        const SignupScreen()));
                                           },
                                           child: const Text(
                                             " Sign Up",

@@ -7,6 +7,7 @@ import 'package:hms/animations/animations.dart';
 import 'package:hms/screens/my_homepage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:permission_handler/permission_handler.dart';
 
@@ -23,7 +24,7 @@ class RegForm extends StatefulWidget {
 
 class RegFormState extends State<RegForm> {
   File? imageFile;
-
+  var imageUrl;
   FocusNode searchFocusNode = FocusNode();
   FocusNode textFieldFocusNode = FocusNode();
   final TextEditingController _roomnoTextController = TextEditingController();
@@ -212,24 +213,48 @@ class RegFormState extends State<RegForm> {
                             borderRadius: BorderRadius.circular(50),
                           ),
                         ),
-                        child: const Text('Add Image'),
+                        child: const Text('Camera'),
                         onPressed: () async {
-                          Map<Permission, PermissionStatus> statuses = await [
-                            Permission.storage,
-                            Permission.camera,
-                          ].request();
-                          if (statuses[Permission.storage]!.isGranted &&
-                              statuses[Permission.camera]!.isGranted) {
-                            getImage(source: ImageSource.camera);
-                          } else {
-                            print('No permission');
+                          ImagePicker imagePicker = ImagePicker();
+                          XFile? file = await imagePicker.pickImage(
+                            source: ImageSource.camera,
+                            maxHeight: 640,
+                            maxWidth: 480,
+                            imageQuality: 10,
+                          );
+                          if (file?.path != null) {
+                            setState(() {
+                              imageFile = File(file!.path);
+                            });
+                          }
+                          String uniqueFileName =
+                              DateTime.now().millisecondsSinceEpoch.toString();
+                          Reference referenceRoot =
+                              FirebaseStorage.instance.ref();
+                          Reference referenceDirImages =
+                              referenceRoot.child('images');
+                          Reference referenceImageToUpload =
+                              referenceDirImages.child(uniqueFileName);
+                          try {
+                            //Store the file
+                            await referenceImageToUpload
+                                .putFile(File(file!.path));
+                            //Success: get the download URL
+                            imageUrl =
+                                await referenceImageToUpload.getDownloadURL();
+                            print('Image URL: ${imageUrl.toString()}');
+                            //Success: add the image to the list
+                            // setState(() {
+                          } catch (error) {
+                            //Some error occurred
                           }
                         },
+                        // getImage(source: ImageSource.camera),
                       ),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                     child: Container(
                       height: 50,
                       width: 150,
@@ -255,6 +280,7 @@ class RegFormState extends State<RegForm> {
                                 'email': email,
                                 'status': "Pending",
                                 'datetime': dtString,
+                                'image': imageUrl,
                               },
                             );
                             Navigator.pop(context);
@@ -283,13 +309,26 @@ class RegFormState extends State<RegForm> {
         ));
   }
 
-  void getImage({required ImageSource source}) async {
-    final file = await ImagePicker().pickImage(source: source);
-
-    if (file?.path != null) {
-      setState(() {
-        imageFile = File(file!.path);
-      });
-    }
-  }
+  // void getImage({required ImageSource source}) async {
+  //   ImagePicker imagePicker = ImagePicker();
+  //   XFile? file = await imagePicker.pickImage(source: source);
+  //   String uniqueFileName = DateTime.now().millisecondsSinceEpoch.toString();
+  //   Reference referenceRoot = FirebaseStorage.instance.ref();
+  //   Reference referenceDirImages = referenceRoot.child('images');
+  //   Reference referenceImageToUpload = referenceDirImages.child(uniqueFileName);
+  //   try {
+  //     //Store the file
+  //     await referenceImageToUpload.putFile(File(file!.path));
+  //     //Success: get the download URL
+  //     var imageUrl = await referenceImageToUpload.getDownloadURL();
+  //     // print(imageUrl);
+  //   } catch (error) {
+  //     //Some error occurred
+  //   }
+  //   if (file?.path != null) {
+  //     setState(() {
+  //       imageFile = File(file!.path);
+  //     });
+  //   }
+  // }
 }
