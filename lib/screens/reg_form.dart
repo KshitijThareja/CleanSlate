@@ -51,7 +51,8 @@ class RegFormState extends State<RegForm> {
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: const Text("HMS"),
+          title: const Text("Registration"),
+          centerTitle: true,
           backgroundColor: const Color.fromARGB(255, 243, 81, 81),
           leading: BackButton(
             onPressed: () {
@@ -65,16 +66,23 @@ class RegFormState extends State<RegForm> {
           child: ListView(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                padding: const EdgeInsets.fromLTRB(0, 80, 0, 0),
                 child: Container(
                   child: TextFormField(
                     decoration: const InputDecoration(
+                        focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                          color: Color.fromARGB(255, 243, 81, 81),
+                        )),
                         contentPadding: EdgeInsets.only(
                           left: 10.0,
                           right: 10.0,
                         ),
                         labelText: "Room Number",
+                        floatingLabelStyle:
+                            TextStyle(color: Color.fromARGB(255, 243, 81, 81)),
                         prefixIcon: Icon(Icons.numbers),
+                        prefixIconColor: Color.fromARGB(255, 243, 81, 81),
                         hintStyle: TextStyle(color: Colors.grey)),
                     keyboardType: TextInputType.number,
                     validator: (value) {
@@ -88,16 +96,23 @@ class RegFormState extends State<RegForm> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+                padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                 child: Container(
                   child: TextFormField(
                     decoration: const InputDecoration(
+                        focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                          color: Color.fromARGB(255, 243, 81, 81),
+                        )),
                         contentPadding: EdgeInsets.only(
                           left: 10.0,
                           right: 10.0,
                         ),
                         labelText: "Description",
+                        floatingLabelStyle:
+                            TextStyle(color: Color.fromARGB(255, 243, 81, 81)),
                         prefixIcon: Icon(Icons.pending),
+                        prefixIconColor: Color.fromARGB(255, 243, 81, 81),
                         hintStyle: TextStyle(color: Colors.grey)),
                     validator: (value) {
                       if (value?.isEmpty ?? true) {
@@ -110,33 +125,52 @@ class RegFormState extends State<RegForm> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+                padding: const EdgeInsets.fromLTRB(0, 30, 0, 30),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     // Icon(Icons.arrow_drop_down),
-
-                    DropdownButton(
-                        items: _complaintType
-                            .map((value) => DropdownMenuItem(
-                                  value: value,
-                                  child: Text(
-                                    value,
-                                    style: const TextStyle(color: Colors.black),
-                                  ),
-                                ))
-                            .toList(),
-                        onChanged: (selectedComplaintType) {
-                          setState(() {
-                            selectedType = selectedComplaintType;
-                          });
-                        },
-                        value: selectedType,
-                        isExpanded: false,
-                        hint: const Text(
-                          'Complaint Type',
-                          style: TextStyle(color: Colors.black),
-                        )),
+                    Container(
+                      padding: const EdgeInsets.all(2.0),
+                      decoration: BoxDecoration(
+                        // color: Colors.orange[900],
+                        borderRadius: BorderRadius.circular(50),
+                        border: Border.all(color: Colors.black, width: 1),
+                      ),
+                      child: DropdownButton(
+                          items: _complaintType
+                              .map((value) => DropdownMenuItem(
+                                    value: value,
+                                    child: Text(
+                                      value,
+                                      style:
+                                          const TextStyle(color: Colors.black),
+                                    ),
+                                  ))
+                              .toList(),
+                          onChanged: (selectedComplaintType) {
+                            setState(() {
+                              selectedType = selectedComplaintType;
+                            });
+                          },
+                          icon: const Padding(
+                            padding: EdgeInsets.only(
+                              left: 1,
+                              right: 8,
+                            ),
+                            child: Icon(Icons.arrow_circle_down_sharp),
+                          ),
+                          value: selectedType,
+                          isExpanded: false,
+                          underline: Container(),
+                          hint: const Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: Text(
+                              'Complaint Type',
+                              style: TextStyle(color: Colors.black),
+                            ),
+                          )),
+                    ),
                   ],
                 ),
               ),
@@ -166,12 +200,14 @@ class RegFormState extends State<RegForm> {
                           const Text('Click the camera button to add images'),
                     ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 80, 0, 0),
-                    child: SizedBox(
+                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                    child: Container(
                       height: 50,
                       width: 150,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              const Color.fromARGB(255, 243, 81, 81),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(50),
                           ),
@@ -192,39 +228,54 @@ class RegFormState extends State<RegForm> {
                       ),
                     ),
                   ),
-                  ElevatedButton(
-                      child: const Text('Submit'),
-                      onPressed: () {
-                        CollectionReference collref =
-                            FirebaseFirestore.instance.collection('clients');
-                        collref.add(
-                          {
-                            'complaintType': selectedType,
-                            'description': _descriptionTextController.text,
-                            'roomno': _roomnoTextController.text,
-                            'date': currentDate,
-                            'email': email,
-                            'status': "Pending",
-                            'datetime': dtString,
-                          },
-                        );
-                        Navigator.pop(context);
-                        // var collection =
-                        //     FirebaseFirestore.instance.collection('clients');
-                        // collection
-                        //     .doc(uid) // <-- Document ID
-                        //     .set(
-                        //       {
-                        //         'complaintType': selectedType,
-                        //         'description': _descriptionTextController.text,
-                        //         'roomno': _roomnoTextController.text,
-                        //         'date': currentDate,
-                        //         'email': email,
-                        //       },
-                        //     ) // <-- Your data
-                        //     .then((_) => print('Added'))
-                        //     .catchError((error) => print('Add failed: $error'));
-                      })
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                    child: Container(
+                      height: 50,
+                      width: 150,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                const Color.fromARGB(255, 243, 81, 81),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                          ),
+                          child: const Text('Submit'),
+                          onPressed: () {
+                            CollectionReference collref = FirebaseFirestore
+                                .instance
+                                .collection('clients');
+                            collref.add(
+                              {
+                                'complaintType': selectedType,
+                                'description': _descriptionTextController.text,
+                                'roomno': _roomnoTextController.text,
+                                'date': currentDate,
+                                'email': email,
+                                'status': "Pending",
+                                'datetime': dtString,
+                              },
+                            );
+                            Navigator.pop(context);
+                            // var collection =
+                            //     FirebaseFirestore.instance.collection('clients');
+                            // collection
+                            //     .doc(uid) // <-- Document ID
+                            //     .set(
+                            //       {
+                            //         'complaintType': selectedType,
+                            //         'description': _descriptionTextController.text,
+                            //         'roomno': _roomnoTextController.text,
+                            //         'date': currentDate,
+                            //         'email': email,
+                            //       },
+                            //     ) // <-- Your data
+                            //     .then((_) => print('Added'))
+                            //     .catchError((error) => print('Add failed: $error'));
+                          }),
+                    ),
+                  )
                 ],
               ),
             ],

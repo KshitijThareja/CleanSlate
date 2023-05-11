@@ -31,6 +31,7 @@ class _BodyState extends State<_Body> {
   final TextEditingController _passwordTextController = TextEditingController();
   final TextEditingController _emailTextController = TextEditingController();
   final TextEditingController _usernameTextController = TextEditingController();
+  // ignore: prefer_typing_uninitialized_variables
   var selectedType;
   final List<String> _userType = <String>[
     'Warden',
@@ -160,40 +161,65 @@ class _BodyState extends State<_Body> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+                                padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     // Icon(Icons.arrow_drop_down),
-
-                                    DropdownButton(
-                                        items: _userType
-                                            .map((value) => DropdownMenuItem(
-                                                  value: value,
-                                                  child: Text(
-                                                    value,
-                                                    style: const TextStyle(
-                                                        color: Colors.black),
-                                                  ),
-                                                ))
-                                            .toList(),
-                                        onChanged: (selectedUserType) {
-                                          setState(() {
-                                            selectedType = selectedUserType;
-                                          });
-                                        },
-                                        value: selectedType,
-                                        isExpanded: false,
-                                        hint: const Text(
-                                          'User Type',
-                                          style: TextStyle(color: Colors.black),
-                                        )),
+                                    Container(
+                                      padding: const EdgeInsets.all(2.0),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(50),
+                                        border: Border.all(
+                                            color: Colors.black, width: 1),
+                                      ),
+                                      child: DropdownButton(
+                                          items: _userType
+                                              .map((value) => DropdownMenuItem(
+                                                    value: value,
+                                                    child: Padding(
+                                                      padding: const EdgeInsets
+                                                          .fromLTRB(8, 8, 0, 8),
+                                                      child: Text(
+                                                        value,
+                                                        style: const TextStyle(
+                                                            color:
+                                                                Colors.black),
+                                                      ),
+                                                    ),
+                                                  ))
+                                              .toList(),
+                                          onChanged: (selectedUserType) {
+                                            setState(() {
+                                              selectedType = selectedUserType;
+                                            });
+                                          },
+                                          icon: const Padding(
+                                            padding: EdgeInsets.only(
+                                              left: 1,
+                                              right: 8,
+                                            ),
+                                            child: Icon(
+                                                Icons.arrow_circle_down_sharp),
+                                          ),
+                                          iconEnabledColor: Colors.black,
+                                          underline: Container(),
+                                          value: selectedType,
+                                          isExpanded: false,
+                                          hint: const Padding(
+                                            padding: EdgeInsets.all(8.0),
+                                            child: Text(
+                                              'User Type',
+                                              style: TextStyle(
+                                                  color: Colors.black),
+                                            ),
+                                          )),
+                                    ),
                                   ],
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(0, 40, 0, 20),
+                                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                                 child: firebaseUIButton(context, "Sign up", () {
                                   FirebaseAuth.instance
                                       .createUserWithEmailAndPassword(
@@ -203,11 +229,11 @@ class _BodyState extends State<_Body> {
                                       .then((value) {
                                     print("Created New Account");
                                     route();
-                                    // Navigator.push(
-                                    //     context,
-                                    //     MaterialPageRoute(
-                                    //         builder: (context) =>
-                                    //             HomeScreen()));
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                HomeScreen()));
                                   }).onError((error, stackTrace) {
                                     print("Error ${error.toString()}");
                                   });
