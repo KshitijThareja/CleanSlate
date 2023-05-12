@@ -123,10 +123,13 @@ class _PendingUserInformationState extends State<PendingUserInformation> {
                                     child: SingleChildScrollView(
                                       child: ListBody(
                                         children: <Widget>[
-                                          Image.network(
-                                            data['image'],
-                                            height: 200,
-                                            width: 200,
+                                          Padding(
+                                            padding: const EdgeInsets.all(18.0),
+                                            child: Image.network(
+                                              data['image'],
+                                              height: 200,
+                                              width: 200,
+                                            ),
                                           ),
                                           Row(
                                             mainAxisAlignment:
@@ -300,10 +303,13 @@ class _CompleteUserInformationState extends State<CompleteUserInformation> {
                                     child: SingleChildScrollView(
                                       child: ListBody(
                                         children: <Widget>[
-                                          Image.network(
-                                            data['image'],
-                                            height: 200,
-                                            width: 200,
+                                          Padding(
+                                            padding: const EdgeInsets.all(18.0),
+                                            child: Image.network(
+                                              data['image'],
+                                              height: 200,
+                                              width: 200,
+                                            ),
                                           ),
                                           Row(
                                             mainAxisAlignment:

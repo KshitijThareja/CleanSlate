@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hms/screens/admin/custom_animated_bottom_bar.dart';
 import 'package:hms/screens/admin/reg_complaint.dart';
 import 'package:hms/screens/admin/account.dart';
+import 'package:hms/screens/admin/users.dart';
 
 class AdminHomeScreen extends StatefulWidget {
   @override
@@ -13,9 +14,7 @@ class AdminHomeScreenState extends State<AdminHomeScreen> {
   final _inactiveColor = const Color.fromARGB(255, 99, 97, 97);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: getBody(),
-        bottomNavigationBar: _buildBottomBar());
+    return Scaffold(body: getBody(), bottomNavigationBar: _buildBottomBar());
   }
 
   Widget _buildBottomBar() {
@@ -29,16 +28,16 @@ class AdminHomeScreenState extends State<AdminHomeScreen> {
       onItemSelected: (index) => setState(() => _currentIndex = index),
       items: <BottomNavyBarItem>[
         BottomNavyBarItem(
-          icon: const Icon(Icons.apps),
+          icon: const Icon(Icons.home_filled),
           title: const Text('Home'),
           activeColor: Colors.orange,
           inactiveColor: _inactiveColor,
           textAlign: TextAlign.center,
         ),
         BottomNavyBarItem(
-          icon: const Icon(Icons.message),
+          icon: const Icon(Icons.supervised_user_circle_outlined),
           title: const Text(
-            'Notifications ',
+            'Users ',
           ),
           activeColor: Colors.orange,
           inactiveColor: _inactiveColor,
@@ -58,21 +57,22 @@ class AdminHomeScreenState extends State<AdminHomeScreen> {
   Widget getBody() {
     List<Widget> pages = [
       Container(alignment: Alignment.center, child: Register()),
-      Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: const Text("NOTIFICATIONS"),
-          centerTitle: true,
-          backgroundColor: const Color.fromARGB(255, 243, 81, 81),
-        ),
-        body: Container(
-          alignment: Alignment.center,
-          child: const Text(
-            "Notifications",
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-          ),
-        ),
-      ),
+      // Scaffold(
+      //   appBar: AppBar(
+      //     automaticallyImplyLeading: false,
+      //     title: const Text("NOTIFICATIONS"),
+      //     centerTitle: true,
+      //     backgroundColor: const Color.fromARGB(255, 243, 81, 81),
+      //   ),
+      //   body: Container(
+      //     alignment: Alignment.center,
+      //     child: const Text(
+      //       "Notifications",
+      //       style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+      //     ),
+      //   ),
+      // ),
+      Container(alignment: Alignment.center, child: Users()),
       Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,

@@ -50,7 +50,10 @@ class CustomAnimatedBottomBar extends StatelessWidget {
         child: Container(
           width: double.infinity,
           height: containerHeight,
-          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+          padding: const EdgeInsets.symmetric(
+            vertical: 6,
+            horizontal: 80,
+          ),
           child: Row(
             mainAxisAlignment: mainAxisAlignment,
             children: items.map((item) {

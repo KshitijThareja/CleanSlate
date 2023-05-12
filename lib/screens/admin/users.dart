@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:hms/screens/reg_form.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 
-class Register extends StatelessWidget {
+class Users extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -22,9 +22,9 @@ class Register extends StatelessWidget {
                   children: const [
                     Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: Icon(Icons.pending_actions),
+                      child: Icon(Icons.child_care),
                     ),
-                    Text("Pending"),
+                    Text("Students"),
                   ],
                 ),
               ),
@@ -34,57 +34,46 @@ class Register extends StatelessWidget {
                   children: const [
                     Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: Icon(Icons.check_box),
+                      child: Icon(Icons.admin_panel_settings),
                     ),
-                    Text("Completed"),
+                    Text("Wardens"),
                   ],
                 ),
               ),
             ],
           ),
           automaticallyImplyLeading: false,
-          title: const Text("HOME"),
+          title: const Text("USERS"),
           centerTitle: true,
           backgroundColor: const Color.fromARGB(255, 243, 81, 81),
         ),
-        floatingActionButton: GestureDetector(
-          child: FloatingActionButton.extended(
-            onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => RegForm()));
-
-              // Add your onPressed code here!
-            },
-            label: const Text('Register complaint'),
-            icon: const Icon(Icons.add),
-            backgroundColor: const Color.fromARGB(255, 243, 81, 81),
-          ),
-        ),
         body: TabBarView(children: [
-          PendingUserInformation(),
-          CompleteUserInformation(),
+          StudentUserInformation(),
+          WardenUserInformation(),
         ]),
       ),
     );
   }
 }
 
-class PendingUserInformation extends StatefulWidget {
+class StudentUserInformation extends StatefulWidget {
   @override
   // ignore: library_private_types_in_public_api
-  _PendingUserInformationState createState() => _PendingUserInformationState();
+  _StudentUserInformationState createState() => _StudentUserInformationState();
 }
 
-class _PendingUserInformationState extends State<PendingUserInformation> {
+class _StudentUserInformationState extends State<StudentUserInformation> {
+  var today = DateTime.now();
+  var dateFormat = DateFormat('dd-MM-yyyy');
+  var timeFormat = DateFormat('kk:mm:ss');
+  late String currentDate = dateFormat.format(today);
+  late String currentTime = timeFormat.format(today);
+  late String dtString = today.toString();
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
-      .collection('clients')
+      .collection('users')
       .where(
-        'email',
-        isEqualTo: FirebaseAuth.instance.currentUser?.email,
-      )
-      .where(
-        'status',
-        isEqualTo: 'Pending',
+        'userType',
+        isEqualTo: 'Student',
       )
       // .orderBy('datetime', descending: true)
       .snapshots();
@@ -118,15 +107,14 @@ class _PendingUserInformationState extends State<PendingUserInformation> {
                         border: Border(
                             right:
                                 BorderSide(width: 1.0, color: Colors.black))),
-                    child:
-                        const Icon(Icons.pending_actions, color: Colors.black),
+                    child: const Icon(Icons.child_care, color: Colors.black),
                   ),
                   trailing: IconButton(
                       onPressed: () {
                         showDialog(
                             context: context,
                             builder: (context) => CupertinoAlertDialog(
-                                  title: const Text("Complaint Info"),
+                                  title: const Text("User Info"),
                                   content: Padding(
                                     padding:
                                         const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -135,18 +123,20 @@ class _PendingUserInformationState extends State<PendingUserInformation> {
                                         children: <Widget>[
                                           Padding(
                                             padding: const EdgeInsets.all(18.0),
-                                            child: Image.network(
-                                              data['image'],
-                                              height: 200,
-                                              width: 200,
+                                            child: Center(
+                                              child: CircleAvatar(
+                                                foregroundImage:
+                                                    NetworkImage(data['image']),
+                                                radius: 80,
+                                              ),
                                             ),
                                           ),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
-                                              const Text("Date added: "),
-                                              Text(data['date']),
+                                              const Text("Username: "),
+                                              Text(data['username']),
                                             ],
                                           ),
                                           Padding(
@@ -156,38 +146,10 @@ class _PendingUserInformationState extends State<PendingUserInformation> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: [
-                                                const Text("Type: "),
-                                                Text(data['complaintType']),
+                                                const Text("Email"),
+                                                Text(data['email']),
                                               ],
                                             ),
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              const Text("Room number: "),
-                                              Text(data['roomno']),
-                                            ],
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                0, 10, 0, 10),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                const Text("Description: "),
-                                                Text(data['description']),
-                                              ],
-                                            ),
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              const Text("Status: "),
-                                              Text(data['status']),
-                                            ],
                                           ),
                                         ],
                                       ),
@@ -195,6 +157,8 @@ class _PendingUserInformationState extends State<PendingUserInformation> {
                                   ),
                                   actions: <CupertinoDialogAction>[
                                     CupertinoDialogAction(
+                                      /// This parameter indicates this action is the default,
+                                      /// and turns the action's text to bold text.
                                       isDefaultAction: true,
                                       onPressed: () {
                                         Navigator.pop(context);
@@ -207,14 +171,14 @@ class _PendingUserInformationState extends State<PendingUserInformation> {
                       icon: const Icon(Icons.keyboard_arrow_right)),
                   title: Row(
                     children: [
-                      const Text("Type: "),
-                      Text(data['complaintType']),
+                      const Text("Name: "),
+                      Text(data['username']),
                     ],
                   ),
                   subtitle: Row(
                     children: [
-                      const Text("Date added: "),
-                      Text(data['date']),
+                      const Text("Role: "),
+                      Text(data['userType']),
                     ],
                   ),
                 ),
@@ -227,23 +191,18 @@ class _PendingUserInformationState extends State<PendingUserInformation> {
   }
 }
 
-class CompleteUserInformation extends StatefulWidget {
+class WardenUserInformation extends StatefulWidget {
   @override
   // ignore: library_private_types_in_public_api
-  _CompleteUserInformationState createState() =>
-      _CompleteUserInformationState();
+  _WardenUserInformationState createState() => _WardenUserInformationState();
 }
 
-class _CompleteUserInformationState extends State<CompleteUserInformation> {
+class _WardenUserInformationState extends State<WardenUserInformation> {
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
-      .collection('clients')
+      .collection('users')
       .where(
-        'email',
-        isEqualTo: FirebaseAuth.instance.currentUser?.email,
-      )
-      .where(
-        'status',
-        isEqualTo: 'Completed',
+        'userType',
+        isEqualTo: 'Warden',
       )
 
       // .orderBy('datetime', descending: true)
@@ -278,14 +237,15 @@ class _CompleteUserInformationState extends State<CompleteUserInformation> {
                         border: Border(
                             right:
                                 BorderSide(width: 1.0, color: Colors.black))),
-                    child: const Icon(Icons.check_box, color: Colors.black),
+                    child: const Icon(Icons.admin_panel_settings,
+                        color: Colors.black),
                   ),
                   trailing: IconButton(
                       onPressed: () {
                         showDialog(
                             context: context,
                             builder: (context) => CupertinoAlertDialog(
-                                  title: const Text("Complaint Info"),
+                                  title: const Text("User Info"),
                                   content: Padding(
                                     padding:
                                         const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -294,18 +254,20 @@ class _CompleteUserInformationState extends State<CompleteUserInformation> {
                                         children: <Widget>[
                                           Padding(
                                             padding: const EdgeInsets.all(18.0),
-                                            child: Image.network(
-                                              data['image'],
-                                              height: 200,
-                                              width: 200,
+                                            child: Center(
+                                              child: CircleAvatar(
+                                                foregroundImage:
+                                                    NetworkImage(data['image']),
+                                                radius: 80,
+                                              ),
                                             ),
                                           ),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
-                                              const Text("Date added: "),
-                                              Text(data['date']),
+                                              const Text("Name: "),
+                                              Text(data['username']),
                                             ],
                                           ),
                                           Padding(
@@ -315,38 +277,10 @@ class _CompleteUserInformationState extends State<CompleteUserInformation> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: [
-                                                const Text("Type: "),
-                                                Text(data['complaintType']),
+                                                const Text("Email: "),
+                                                Text(data['email']),
                                               ],
                                             ),
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              const Text("Room number: "),
-                                              Text(data['roomno']),
-                                            ],
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                0, 10, 0, 10),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                const Text("Description: "),
-                                                Text(data['description']),
-                                              ],
-                                            ),
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              const Text("Status: "),
-                                              Text(data['status']),
-                                            ],
                                           ),
                                         ],
                                       ),
@@ -366,14 +300,14 @@ class _CompleteUserInformationState extends State<CompleteUserInformation> {
                       icon: const Icon(Icons.keyboard_arrow_right)),
                   title: Row(
                     children: [
-                      const Text("Type: "),
-                      Text(data['complaintType']),
+                      const Text("Name: "),
+                      Text(data['username']),
                     ],
                   ),
                   subtitle: Row(
                     children: [
-                      const Text("Date added: "),
-                      Text(data['date']),
+                      const Text("Role: "),
+                      Text(data['userType']),
                     ],
                   ),
                 ),
