@@ -27,21 +27,21 @@ class HomeScreenState extends State<HomeScreen> {
       onItemSelected: (index) => setState(() => _currentIndex = index),
       items: <BottomNavyBarItem>[
         BottomNavyBarItem(
-          icon: const Icon(Icons.apps),
+          icon: const Icon(Icons.home_filled),
           title: const Text('Home'),
           activeColor: Colors.orange,
           inactiveColor: _inactiveColor,
           textAlign: TextAlign.center,
         ),
-        BottomNavyBarItem(
-          icon: const Icon(Icons.message),
-          title: const Text(
-            'Notifications ',
-          ),
-          activeColor: Colors.orange,
-          inactiveColor: _inactiveColor,
-          textAlign: TextAlign.center,
-        ),
+        // BottomNavyBarItem(
+        //   icon: const Icon(Icons.message),
+        //   title: const Text(
+        //     'Notifications ',
+        //   ),
+        //   activeColor: Colors.orange,
+        //   inactiveColor: _inactiveColor,
+        //   textAlign: TextAlign.center,
+        // ),
         BottomNavyBarItem(
           icon: const Icon(Icons.person),
           title: const Text('Account'),
@@ -56,21 +56,21 @@ class HomeScreenState extends State<HomeScreen> {
   Widget getBody() {
     List<Widget> pages = [
       Container(alignment: Alignment.center, child: Register()),
-      Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: const Text("NOTIFICATIONS"),
-          centerTitle: true,
-          backgroundColor: const Color.fromARGB(255, 243, 81, 81),
-        ),
-        body: Container(
-          alignment: Alignment.center,
-          child: const Text(
-            "Notifications",
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-          ),
-        ),
-      ),
+      // Scaffold(
+      //   appBar: AppBar(
+      //     automaticallyImplyLeading: false,
+      //     title: const Text("NOTIFICATIONS"),
+      //     centerTitle: true,
+      //     backgroundColor: const Color.fromARGB(255, 243, 81, 81),
+      //   ),
+      //   body: Container(
+      //     alignment: Alignment.center,
+      //     child: const Text(
+      //       "Notifications",
+      //       style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+      //     ),
+      //   ),
+      // ),
       Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,

@@ -78,7 +78,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                     children: [
                       if (imageFile != null)
                         Padding(
-                          padding: const EdgeInsets.all(18.0),
+                          padding: const EdgeInsets.fromLTRB(0, 200, 0, 0),
                           child: Center(
                             child: CircleAvatar(
                               foregroundImage: FileImage(imageFile!),
@@ -86,20 +86,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                             ),
                           ),
                         ),
-                      // Padding(
-                      //   padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                      //   child: Container(
-                      //     height: 120,
-                      //     width: 120,
-                      //     alignment: Alignment.center,
-                      //     decoration: BoxDecoration(
-                      //         shape: BoxShape.circle,
-                      //         color: primary,
-                      //         image: DecorationImage(
-                      //             image: FileImage(imageFile!),
-                      //             fit: BoxFit.fill)),
-                      //   ),
-                      // ),
+                
                       if (imageFile == null)
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0, 200, 0, 0),

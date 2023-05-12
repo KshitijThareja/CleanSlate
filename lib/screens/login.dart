@@ -28,6 +28,8 @@ class _Body extends StatefulWidget {
 }
 
 class _BodyState extends State<_Body> {
+  bool _obscureText = true;
+
   final TextEditingController _passwordTextController = TextEditingController();
 
   final TextEditingController _emailTextController = TextEditingController();
@@ -125,16 +127,28 @@ class _BodyState extends State<_Body> {
                                       padding: const EdgeInsets.fromLTRB(
                                           20, 20, 20, 0),
                                       child: TextField(
-                                        obscureText: true,
-                                          decoration: const InputDecoration(
-                                            contentPadding: EdgeInsets.only(
+                                          obscureText: _obscureText,
+                                          decoration: InputDecoration(
+                                            contentPadding:
+                                                const EdgeInsets.only(
                                               left: 10.0,
                                               right: 10.0,
                                             ),
                                             labelText: "Password",
-                                            prefixIcon: Icon(Icons.lock),
-                                            hintStyle:
-                                                TextStyle(color: Colors.grey),
+                                            prefixIcon: const Icon(Icons.lock),
+                                            // ignore: sort_child_properties_last
+                                            suffixIcon: GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  _obscureText = !_obscureText;
+                                                });
+                                              },
+                                              child: Icon(_obscureText
+                                                  ? Icons.visibility
+                                                  : Icons.visibility_off),
+                                            ),
+                                            hintStyle: const TextStyle(
+                                                color: Colors.grey),
                                           ),
                                           controller: _passwordTextController),
                                     ),

@@ -27,6 +27,8 @@ class _Body extends StatefulWidget {
 }
 
 class _BodyState extends State<_Body> {
+  bool _obscureText = true;
+
   String? uid = FirebaseAuth.instance.currentUser?.uid;
   final TextEditingController _passwordTextController = TextEditingController();
   final TextEditingController _emailTextController = TextEditingController();
@@ -147,16 +149,26 @@ class _BodyState extends State<_Body> {
                                   padding:
                                       const EdgeInsets.fromLTRB(20, 15, 20, 0),
                                   child: TextField(
-                                    obscureText: true,
-                                      decoration: const InputDecoration(
-                                        contentPadding: EdgeInsets.only(
+                                      obscureText: _obscureText,
+                                      decoration: InputDecoration(
+                                        contentPadding: const EdgeInsets.only(
                                           left: 10.0,
                                           right: 10.0,
                                         ),
                                         labelText: "Password",
-                                        prefixIcon: Icon(Icons.lock),
+                                        prefixIcon: const Icon(Icons.lock),
+                                        suffixIcon: GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                                  _obscureText = !_obscureText;
+                                                });
+                                          },
+                                          child: Icon(_obscureText
+                                                  ? Icons.visibility
+                                                  : Icons.visibility_off),
+                                        ),
                                         hintStyle:
-                                            TextStyle(color: Colors.grey),
+                                            const TextStyle(color: Colors.grey),
                                       ),
                                       controller: _passwordTextController),
                                 ),

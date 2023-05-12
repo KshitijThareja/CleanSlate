@@ -42,6 +42,7 @@ class Main extends StatelessWidget {
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
+            // crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 70, 0, 20),
@@ -63,11 +64,24 @@ class Main extends StatelessWidget {
                   ),
                 ),
               ),
+              const Padding(
+                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                child: Text(
+                  'Track, Prioritize and Solve issues Seamlessly!',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'Roboto Condensed',
+                    fontSize: 26.0,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 140, 20, 0),
+                    padding: const EdgeInsets.fromLTRB(20, 80, 20, 0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           fixedSize: const Size(130, 50),
@@ -81,14 +95,14 @@ class Main extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               vertical: 15, horizontal: 40)),
                       onPressed: () {
-                        Navigator.of(context).push(CustomPageRoute(
-                            child: const LoginScreen()));
+                        Navigator.of(context)
+                            .push(CustomPageRoute(child: const LoginScreen()));
                       },
                       child: const Text("Login"),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 140, 20, 0),
+                    padding: const EdgeInsets.fromLTRB(20, 80, 20, 0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           fixedSize: const Size(130, 50),
@@ -103,8 +117,8 @@ class Main extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               vertical: 15, horizontal: 30)),
                       onPressed: () {
-                        Navigator.of(context).push(CustomPageRoute(
-                            child: const SignupScreen()));
+                        Navigator.of(context)
+                            .push(CustomPageRoute(child: const SignupScreen()));
                       },
                       child: const Text("Signup"),
                     ),
