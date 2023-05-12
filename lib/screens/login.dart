@@ -125,6 +125,7 @@ class _BodyState extends State<_Body> {
                                       padding: const EdgeInsets.fromLTRB(
                                           20, 20, 20, 0),
                                       child: TextField(
+                                        obscureText: true,
                                           decoration: const InputDecoration(
                                             contentPadding: EdgeInsets.only(
                                               left: 10.0,
