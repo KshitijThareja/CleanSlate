@@ -14,7 +14,7 @@ class Register extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           bottom: TabBar(
-            indicatorColor: Color.fromARGB(255, 250, 250, 250),
+            indicatorColor: const Color.fromARGB(255, 250, 250, 250),
             indicatorWeight: 3,
             tabs: [
               Tab(

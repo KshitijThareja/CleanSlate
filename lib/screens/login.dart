@@ -13,9 +13,11 @@ class LoginScreen extends StatelessWidget {
   const LoginScreen();
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: const _Body(),
+    return SafeArea(
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: const _Body(),
+      ),
     );
   }
 }
