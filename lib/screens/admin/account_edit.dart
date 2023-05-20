@@ -1,12 +1,11 @@
+// ignore_for_file: avoid_print, prefer_typing_uninitialized_variables
+
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/services.dart';
-import 'package:hms/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
-import 'package:path/path.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:hms/animations/animations.dart';
+// import 'package:hms/animations/animations.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class EditAccountScreen extends StatefulWidget {

@@ -1,11 +1,13 @@
+// ignore_for_file: unused_field, prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
-import 'package:hms/screens/my_homepage.dart';
+// import 'package:hms/screens/my_homepage.dart';
 import 'package:hms/screens/reusable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hms/screens/home.dart';
 import 'package:hms/animations/animations.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hms/screens/admin/my_homepage.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:hms/screens/admin/my_homepage.dart';
 
 class ForgotScreen extends StatelessWidget {
   const ForgotScreen();

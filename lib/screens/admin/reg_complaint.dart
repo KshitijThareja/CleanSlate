@@ -1,8 +1,10 @@
+// ignore_for_file: avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:hms/screens/reg_form.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:hms/screens/reg_form.dart';
+// import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
@@ -13,14 +15,14 @@ class Register extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          bottom: TabBar(
+          bottom: const TabBar(
             indicatorColor: Color.fromARGB(255, 250, 250, 250),
             indicatorWeight: 3,
             tabs: [
               Tab(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Icon(Icons.pending_actions),
@@ -32,7 +34,7 @@ class Register extends StatelessWidget {
               Tab(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Icon(Icons.check_box),
@@ -100,7 +102,7 @@ class _PendingUserInformationState extends State<PendingUserInformation> {
               elevation: 2.0,
               margin:
                   const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-              child: Container(
+              child: SizedBox(
                 child: ListTile(
                   leading: Container(
                     padding: const EdgeInsets.only(right: 12.0),
@@ -281,7 +283,7 @@ class _CompleteUserInformationState extends State<CompleteUserInformation> {
               elevation: 2.0,
               margin:
                   const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-              child: Container(
+              child: SizedBox(
                 child: ListTile(
                   leading: Container(
                     padding: const EdgeInsets.only(right: 12.0),

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
@@ -12,14 +12,14 @@ class Users extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          bottom: TabBar(
+          bottom: const TabBar(
             indicatorColor: Color.fromARGB(255, 250, 250, 250),
             indicatorWeight: 3,
             tabs: [
               Tab(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Icon(Icons.child_care),
@@ -31,7 +31,7 @@ class Users extends StatelessWidget {
               Tab(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Icon(Icons.admin_panel_settings),
@@ -99,7 +99,7 @@ class _StudentUserInformationState extends State<StudentUserInformation> {
               elevation: 2.0,
               margin:
                   const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-              child: Container(
+              child: SizedBox(
                 child: ListTile(
                   leading: Container(
                     padding: const EdgeInsets.only(right: 12.0),
@@ -229,7 +229,7 @@ class _WardenUserInformationState extends State<WardenUserInformation> {
               elevation: 2.0,
               margin:
                   const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-              child: Container(
+              child: SizedBox(
                 child: ListTile(
                   leading: Container(
                     padding: const EdgeInsets.only(right: 12.0),

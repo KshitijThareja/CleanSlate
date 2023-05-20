@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -8,8 +10,6 @@ import 'package:hms/screens/my_homepage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
-
-import 'package:permission_handler/permission_handler.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -68,7 +68,7 @@ class RegFormState extends State<RegForm> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 80, 0, 0),
-                child: Container(
+                child: SizedBox(
                   child: TextFormField(
                     decoration: const InputDecoration(
                         focusedBorder: UnderlineInputBorder(
@@ -98,7 +98,7 @@ class RegFormState extends State<RegForm> {
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                child: Container(
+                child: SizedBox(
                   child: TextFormField(
                     decoration: const InputDecoration(
                         focusedBorder: UnderlineInputBorder(
@@ -202,7 +202,7 @@ class RegFormState extends State<RegForm> {
                     ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                    child: Container(
+                    child: SizedBox(
                       height: 50,
                       width: 150,
                       child: ElevatedButton(
@@ -255,7 +255,7 @@ class RegFormState extends State<RegForm> {
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                    child: Container(
+                    child: SizedBox(
                       height: 50,
                       width: 150,
                       child: ElevatedButton(
