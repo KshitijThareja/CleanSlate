@@ -50,6 +50,7 @@ dependencies:
   image_cropper: ^3.0.3
   flutter_local_notifications: ^14.0.0+1
   firebase_app_check: ^0.1.3
+  flutter_native_splash: ^2.3.0
 
 dev_dependencies:
   flutter_test:
@@ -61,6 +62,14 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+
+flutter_native_splash:
+  android: true
+  ios: true
+  web: false
+
+  color: "#FF7F50"
+  image: "assets/logo.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -96,11 +105,11 @@ flutter:
       fonts:
         - asset: fonts/RobotoCondensed-Regular.ttf
         - asset: fonts/RobotoCondensed-Light.ttf
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+    - family: Manrope
+      fonts:
+        - asset: fonts/Manrope/static/Manrope-Light.ttf
+        - asset: fonts/Manrope/static/Manrope-Medium.ttf
+          weight: 300
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

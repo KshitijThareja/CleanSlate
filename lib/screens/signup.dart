@@ -14,9 +14,11 @@ class SignupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: const _Body(),
+    return SafeArea(
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: const _Body(),
+      ),
     );
   }
 }
@@ -74,7 +76,7 @@ class _BodyState extends State<_Body> {
               top: 0,
               child: Image.asset(
                 'assets/logo.png',
-                height: 450,
+                height: 400,
                 scale: 2.5,
               ),
             ),
@@ -162,12 +164,12 @@ class _BodyState extends State<_Body> {
                                         suffixIcon: GestureDetector(
                                           onTap: () {
                                             setState(() {
-                                                  _obscureText = !_obscureText;
-                                                });
+                                              _obscureText = !_obscureText;
+                                            });
                                           },
                                           child: Icon(_obscureText
-                                                  ? Icons.visibility
-                                                  : Icons.visibility_off),
+                                              ? Icons.visibility
+                                              : Icons.visibility_off),
                                         ),
                                         hintStyle:
                                             const TextStyle(color: Colors.grey),

@@ -17,15 +17,20 @@ class IntroScreen extends StatelessWidget {
                 Color.fromRGBO(255, 129, 13, 0.7900000214576721)
               ]),
         ),
-        child: const Main(),
+        child: const Home(),
       ),
     );
   }
 }
 
-class Main extends StatelessWidget {
-  const Main();
+class Home extends StatefulWidget {
+  const Home();
 
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
