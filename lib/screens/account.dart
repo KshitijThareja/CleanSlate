@@ -132,7 +132,7 @@ class _AccountScreenState extends State<AccountScreen> {
                             children: [
                               const Icon(
                                 Icons.person,
-                                color: Color.fromARGB(255, 243, 81, 81),
+                                color: Color.fromARGB(255, 208, 8, 70),
                               ),
                               const Padding(
                                 padding: EdgeInsets.fromLTRB(20, 0, 10, 0),
@@ -173,7 +173,7 @@ class _AccountScreenState extends State<AccountScreen> {
                             children: [
                               const Icon(
                                 Icons.question_mark,
-                                color: Color.fromARGB(255, 243, 81, 81),
+                                color: Color.fromARGB(255, 208, 8, 70),
                               ),
                               const Padding(
                                 padding: EdgeInsets.fromLTRB(20, 0, 10, 0),
@@ -212,7 +212,7 @@ class _AccountScreenState extends State<AccountScreen> {
                             children: [
                               const Icon(
                                 Icons.mail,
-                                color: Color.fromARGB(255, 243, 81, 81),
+                                color: Color.fromARGB(255, 208, 8, 70),
                               ),
                               const Padding(
                                 padding: EdgeInsets.fromLTRB(20, 0, 10, 0),
@@ -249,7 +249,7 @@ class _AccountScreenState extends State<AccountScreen> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0)),
                       backgroundColor: const Color.fromARGB(
-                          255, 243, 81, 81), // background (button) color
+                          255, 208, 8, 70), // background (button) color
                       foregroundColor: Colors.white, // foreground (text) color
                     ),
                     child: const Text("Logout"),
@@ -271,7 +271,7 @@ class _AccountScreenState extends State<AccountScreen> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0)),
                       backgroundColor: const Color.fromARGB(
-                          255, 243, 81, 81), // background (button) color
+                          255, 208, 8, 70), // background (button) color
                       foregroundColor: Colors.white, // foreground (text) color
                     ),
                     child: const Text("Reset Password"),

@@ -12,14 +12,14 @@ class Register extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          bottom: const TabBar(
-            indicatorColor: Color.fromARGB(255, 250, 250, 250),
+          bottom: TabBar(
+            indicatorColor: const Color.fromARGB(255, 250, 250, 250),
             indicatorWeight: 3,
             tabs: [
               Tab(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
+                  children: const [
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Icon(Icons.pending_actions),
@@ -31,7 +31,7 @@ class Register extends StatelessWidget {
               Tab(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
+                  children: const [
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Icon(Icons.check_box),
@@ -133,14 +133,20 @@ class _PendingUserInformationState extends State<PendingUserInformation> {
                                     child: SingleChildScrollView(
                                       child: ListBody(
                                         children: <Widget>[
-                                          Padding(
-                                            padding: const EdgeInsets.all(18.0),
-                                            child: Image.network(
-                                              data['image'],
-                                              height: 230,
-                                              width: 230,
-                                            ),
-                                          ),
+                                          (data['image'] != null)
+                                              ? Padding(
+                                                  padding: const EdgeInsets.all(
+                                                      18.0),
+                                                  child: Image.network(
+                                                    data['image'],
+                                                    height: 230,
+                                                    width: 230,
+                                                  ),
+                                                )
+                                              : const Padding(
+                                                  padding: EdgeInsets.all(18.0),
+                                                  child: Text("No image"),
+                                                ),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,

@@ -29,7 +29,14 @@ class AdminHomeScreenState extends State<AdminHomeScreen> {
       items: <BottomNavyBarItem>[
         BottomNavyBarItem(
           icon: const Icon(Icons.home_filled),
-          title: const Text('Home'),
+          title: const Text(
+            'Home',
+            style: TextStyle(
+              fontFamily: 'Roboto Condensed',
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           activeColor: const Color.fromARGB(255, 208, 8, 70),
           inactiveColor: _inactiveColor,
           textAlign: TextAlign.center,
@@ -37,7 +44,12 @@ class AdminHomeScreenState extends State<AdminHomeScreen> {
         BottomNavyBarItem(
           icon: const Icon(Icons.supervised_user_circle_outlined),
           title: const Text(
-            'Users ',
+            'Users',
+            style: TextStyle(
+              fontFamily: 'Roboto Condensed',
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           activeColor: const Color.fromARGB(255, 208, 8, 70),
           inactiveColor: _inactiveColor,
@@ -45,7 +57,14 @@ class AdminHomeScreenState extends State<AdminHomeScreen> {
         ),
         BottomNavyBarItem(
           icon: const Icon(Icons.person),
-          title: const Text('Account'),
+          title: const Text(
+            'Account',
+            style: TextStyle(
+              fontFamily: 'Roboto Condensed',
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           activeColor: const Color.fromARGB(255, 208, 8, 70),
           inactiveColor: _inactiveColor,
           textAlign: TextAlign.center,

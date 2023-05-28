@@ -12,14 +12,14 @@ class Users extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          bottom: const TabBar(
-            indicatorColor: Color.fromARGB(255, 250, 250, 250),
+          bottom: TabBar(
+            indicatorColor: const Color.fromARGB(255, 250, 250, 250),
             indicatorWeight: 3,
             tabs: [
               Tab(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
+                  children: const [
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Icon(Icons.person_4),
@@ -31,7 +31,7 @@ class Users extends StatelessWidget {
               Tab(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
+                  children: const [
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Icon(Icons.admin_panel_settings),
@@ -111,6 +111,23 @@ class _StudentUserInformationState extends State<StudentUserInformation> {
                   ),
                   trailing: IconButton(
                       onPressed: () {
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 50, 0, 20),
+                          child: Container(
+                            height: 120,
+                            width: 120,
+                            alignment: Alignment.center,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              // borderRadius: BorderRadius.circular(100),
+                            ),
+                            child: const Icon(
+                              Icons.person,
+                              color: Colors.white,
+                              size: 80,
+                            ),
+                          ),
+                        );
                         showDialog(
                             context: context,
                             builder: (context) => CupertinoAlertDialog(
@@ -121,16 +138,40 @@ class _StudentUserInformationState extends State<StudentUserInformation> {
                                     child: SingleChildScrollView(
                                       child: ListBody(
                                         children: <Widget>[
-                                          Padding(
-                                            padding: const EdgeInsets.all(18.0),
-                                            child: Center(
-                                              child: CircleAvatar(
-                                                foregroundImage:
-                                                    NetworkImage(data['image']),
-                                                radius: 80,
-                                              ),
-                                            ),
-                                          ),
+                                          (data['image'] != null)
+                                              ? Padding(
+                                                  padding: const EdgeInsets.all(
+                                                      18.0),
+                                                  child: Center(
+                                                    child: CircleAvatar(
+                                                      foregroundImage:
+                                                          NetworkImage(
+                                                              data['image']),
+                                                      radius: 80,
+                                                    ),
+                                                  ),
+                                                )
+                                              : Padding(
+                                                  padding:
+                                                      const EdgeInsets.fromLTRB(
+                                                          0, 50, 0, 20),
+                                                  child: Container(
+                                                    height: 120,
+                                                    width: 120,
+                                                    alignment: Alignment.center,
+                                                    decoration:
+                                                        const BoxDecoration(
+                                                      // color: primary,
+                                                      shape: BoxShape.circle,
+                                                      // borderRadius: BorderRadius.circular(100),
+                                                    ),
+                                                    child: const Icon(
+                                                      Icons.person,
+                                                      color: Colors.white,
+                                                      size: 80,
+                                                    ),
+                                                  ),
+                                                ),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
@@ -146,7 +187,7 @@ class _StudentUserInformationState extends State<StudentUserInformation> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: [
-                                                const Text("Email"),
+                                                const Text("Email: "),
                                                 Text(data['email']),
                                               ],
                                             ),

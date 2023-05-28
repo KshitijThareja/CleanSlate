@@ -28,12 +28,14 @@ class HomeScreenState extends State<HomeScreen> {
       items: <BottomNavyBarItem>[
         BottomNavyBarItem(
           icon: const Icon(Icons.home_filled),
-          title: const Text('Home', style: TextStyle(
-            fontFamily: 'Roboto Condensed',
-            fontSize: 40,
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-          ),),
+          title: const Text(
+            'Home',
+            style: TextStyle(
+              fontFamily: 'Roboto Condensed',
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           activeColor: const Color.fromARGB(255, 208, 8, 70),
           inactiveColor: _inactiveColor,
           textAlign: TextAlign.center,
@@ -49,7 +51,14 @@ class HomeScreenState extends State<HomeScreen> {
         // ),
         BottomNavyBarItem(
           icon: const Icon(Icons.person),
-          title: const Text('Account'),
+          title: const Text(
+            'Account',
+            style: TextStyle(
+              fontFamily: 'Roboto Condensed',
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           activeColor: const Color.fromARGB(255, 208, 8, 70),
           inactiveColor: _inactiveColor,
           textAlign: TextAlign.center,
