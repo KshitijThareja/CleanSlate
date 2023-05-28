@@ -22,7 +22,7 @@ class Users extends StatelessWidget {
                   children: const [
                     Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: Icon(Icons.child_care),
+                      child: Icon(Icons.person_4),
                     ),
                     Text("Students"),
                   ],
@@ -107,7 +107,7 @@ class _StudentUserInformationState extends State<StudentUserInformation> {
                         border: Border(
                             right:
                                 BorderSide(width: 1.0, color: Colors.black))),
-                    child: const Icon(Icons.child_care, color: Colors.black),
+                    child: const Icon(Icons.person_4, color: Colors.black),
                   ),
                   trailing: IconButton(
                       onPressed: () {

@@ -118,8 +118,8 @@ class _PendingUserInformationState extends State<PendingUserInformation> {
                         border: Border(
                             right:
                                 BorderSide(width: 1.0, color: Colors.black))),
-                    child:
-                        const Icon(Icons.pending_actions, color: Colors.black),
+                    child: const Icon(Icons.pending_actions_outlined,
+                        color: Colors.black),
                   ),
                   trailing: IconButton(
                       onPressed: () {
@@ -137,8 +137,8 @@ class _PendingUserInformationState extends State<PendingUserInformation> {
                                             padding: const EdgeInsets.all(18.0),
                                             child: Image.network(
                                               data['image'],
-                                              height: 200,
-                                              width: 200,
+                                              height: 230,
+                                              width: 230,
                                             ),
                                           ),
                                           Row(
@@ -296,8 +296,8 @@ class _CompleteUserInformationState extends State<CompleteUserInformation> {
                                             padding: const EdgeInsets.all(18.0),
                                             child: Image.network(
                                               data['image'],
-                                              height: 200,
-                                              width: 200,
+                                              height: 230,
+                                              width: 230,
                                             ),
                                           ),
                                           Row(

@@ -127,8 +127,8 @@ class _PendingUserInformationState extends State<PendingUserInformation> {
                                             padding: const EdgeInsets.all(18.0),
                                             child: Image.network(
                                               data['image'],
-                                              height: 200,
-                                              width: 200,
+                                              height: 230,
+                                              width: 230,
                                             ),
                                           ),
                                           Row(
@@ -307,8 +307,8 @@ class _CompleteUserInformationState extends State<CompleteUserInformation> {
                                             padding: const EdgeInsets.all(18.0),
                                             child: Image.network(
                                               data['image'],
-                                              height: 200,
-                                              width: 200,
+                                              height: 230,
+                                              width: 230,
                                             ),
                                           ),
                                           Row(
