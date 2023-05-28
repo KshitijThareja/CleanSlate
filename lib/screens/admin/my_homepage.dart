@@ -30,7 +30,7 @@ class AdminHomeScreenState extends State<AdminHomeScreen> {
         BottomNavyBarItem(
           icon: const Icon(Icons.home_filled),
           title: const Text('Home'),
-          activeColor: Colors.orange,
+          activeColor: const Color.fromARGB(255, 208, 8, 70),
           inactiveColor: _inactiveColor,
           textAlign: TextAlign.center,
         ),
@@ -39,14 +39,14 @@ class AdminHomeScreenState extends State<AdminHomeScreen> {
           title: const Text(
             'Users ',
           ),
-          activeColor: Colors.orange,
+          activeColor: const Color.fromARGB(255, 208, 8, 70),
           inactiveColor: _inactiveColor,
           textAlign: TextAlign.center,
         ),
         BottomNavyBarItem(
           icon: const Icon(Icons.person),
           title: const Text('Account'),
-          activeColor: Colors.orange,
+          activeColor: const Color.fromARGB(255, 208, 8, 70),
           inactiveColor: _inactiveColor,
           textAlign: TextAlign.center,
         ),
@@ -78,7 +78,7 @@ class AdminHomeScreenState extends State<AdminHomeScreen> {
           automaticallyImplyLeading: false,
           title: const Text("ACCOUNT"),
           centerTitle: true,
-          backgroundColor: const Color.fromARGB(255, 243, 81, 81),
+          backgroundColor: const Color.fromARGB(255, 208, 8, 70),
         ),
         body: Container(
           alignment: Alignment.center,

@@ -16,7 +16,7 @@ Container firebaseUIButton(BuildContext context, String title, Function onTap) {
             if (states.contains(MaterialState.pressed)) {
               return Colors.black26;
             }
-            return Colors.orange[900];
+            return const Color(0xFFE65100);
           }),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)))),

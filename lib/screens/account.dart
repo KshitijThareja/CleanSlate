@@ -1,10 +1,9 @@
+// ignore_for_file: avoid_print
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hms/screens/login.dart';
 import 'package:hms/screens/account_edit.dart';
 import 'package:flutter/material.dart';
-import 'dart:io';
-import 'package:path/path.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:hms/animations/animations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,7 +12,7 @@ import 'package:hms/screens/forgot.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(AccountScreen());
+  runApp(const AccountScreen());
 }
 
 class AccountScreen extends StatefulWidget {
