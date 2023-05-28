@@ -48,7 +48,7 @@ class Register extends StatelessWidget {
           automaticallyImplyLeading: false,
           title: const Text("HOME"),
           centerTitle: true,
-          backgroundColor: const Color.fromARGB(255, 243, 81, 81),
+          backgroundColor: const Color.fromARGB(255, 208, 8, 70),
         ),
         body: TabBarView(children: [
           PendingUserInformation(),

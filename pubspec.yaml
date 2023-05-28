@@ -107,8 +107,8 @@ flutter:
         - asset: fonts/RobotoCondensed-Light.ttf
     - family: Manrope
       fonts:
-        - asset: fonts/Manrope/static/Manrope-Light.ttf
-        - asset: fonts/Manrope/static/Manrope-Medium.ttf
+        - asset: fonts/Manrope-Light.ttf
+        - asset: fonts/Manrope-Medium.ttf
           weight: 300
   #
   # For details regarding fonts from package dependencies,

@@ -62,11 +62,11 @@ class _BodyState extends State<_Body> {
         height: double.maxFinite,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.centerRight,
+              begin: Alignment(-1.1759113073349, 2.255218075224082e-16),
+              end: Alignment(7.200380253914021e-17, 1.1759113073349),
               colors: [
-                Color.fromRGBO(242, 51, 62, 1),
-                Color.fromRGBO(255, 129, 13, 0.7900000214576721)
+                Color.fromARGB(255, 208, 8, 70),
+                Color.fromARGB(255, 235, 64, 52),
               ]),
         ),
         child: Stack(
@@ -117,14 +117,20 @@ class _BodyState extends State<_Body> {
                                       const EdgeInsets.fromLTRB(20, 15, 20, 0),
                                   child: TextField(
                                       decoration: const InputDecoration(
+                                        focusedBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color.fromARGB(255, 160, 53, 60),)),
                                         contentPadding: EdgeInsets.only(
                                           left: 10.0,
                                           right: 10.0,
                                         ),
+                                        floatingLabelStyle:
+                                        TextStyle(color: Color.fromARGB(255, 160, 53, 60)),
                                         labelText: "Username",
                                         prefixIcon: Icon(Icons.person),
+                                        prefixIconColor: Color.fromARGB(255, 208, 8, 70),
                                         hintStyle:
-                                            TextStyle(color: Colors.grey),
+                                            TextStyle(color: Colors.black),
                                       ),
                                       controller: _usernameTextController),
                                 ),
@@ -136,14 +142,20 @@ class _BodyState extends State<_Body> {
                                       const EdgeInsets.fromLTRB(20, 15, 20, 0),
                                   child: TextField(
                                       decoration: const InputDecoration(
+                                          focusedBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Color.fromARGB(255, 160, 53, 60),)),
                                           contentPadding: EdgeInsets.only(
                                             left: 10.0,
                                             right: 10.0,
                                           ),
                                           labelText: "Email",
+                                          floatingLabelStyle:
+                                          TextStyle(color: Color.fromARGB(255, 160, 53, 60)),
                                           prefixIcon: Icon(Icons.mail),
+                                          prefixIconColor: Color.fromARGB(255, 208, 8, 70),
                                           hintStyle:
-                                              TextStyle(color: Colors.grey)),
+                                              TextStyle(color: Colors.black)),
                                       controller: _emailTextController),
                                 ),
                               ),
@@ -155,12 +167,18 @@ class _BodyState extends State<_Body> {
                                   child: TextField(
                                       obscureText: _obscureText,
                                       decoration: InputDecoration(
+                                        focusedBorder: const UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Color.fromARGB(255, 160, 53, 60),)),
                                         contentPadding: const EdgeInsets.only(
                                           left: 10.0,
                                           right: 10.0,
                                         ),
                                         labelText: "Password",
+                                        floatingLabelStyle:
+                                        const TextStyle(color: Color.fromARGB(255, 160, 53, 60)),
                                         prefixIcon: const Icon(Icons.lock),
+                                        prefixIconColor: const Color.fromARGB(255, 208, 8, 70),
                                         suffixIcon: GestureDetector(
                                           onTap: () {
                                             setState(() {
@@ -172,7 +190,7 @@ class _BodyState extends State<_Body> {
                                               : Icons.visibility_off),
                                         ),
                                         hintStyle:
-                                            const TextStyle(color: Colors.grey),
+                                            const TextStyle(color: Colors.black),
                                       ),
                                       controller: _passwordTextController),
                                 ),
